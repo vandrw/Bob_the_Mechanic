@@ -1,1 +1,1 @@
-# Knowledge_Technology_Practical
+# Knowledge Technology Practical

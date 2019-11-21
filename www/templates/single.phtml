@@ -19,25 +19,23 @@
             <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="css/layouts/marketing.css">
+            <link rel="stylesheet" href="templates/css/layouts/marketing.css">
         <!--<![endif]-->
 
-    <!-- Scripts for updating the pages. -->
-    <script>
-    function StartKBase()  {
-        document.getElementById("first-page").style.display = "none";
-        document.getElementById("page-1").style.display = "block";
-        return false;
-    }
-
-    function RecordAnswer() {
-        alert("Answer recorded.");
-        return false;
-    }
-    </script>
-    
 </head>
+
 <body>
+
+<?php if ($errors): ?>
+		<section class="status-update">
+			<p>The following errors occurred:</p>
+			<ul>
+				<?php foreach ($errors as $error): ?>
+				<li title="<?=$this->attr(sprintf('%s:%d', $error->file, $error->line))?>"><?=$this->html($error->message)?></li>
+				<?php endforeach ?>
+			</ul>
+		</section>
+		<?php endif ?>
 
 <!-- The main Knowledge Base System. -->
 
@@ -48,7 +46,7 @@
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         </p>
         <p>
-            <a href="base.html" class="pure-button pure-button-primary">Get Started</a>
+            <a href="webfrontend.php?kb=car.xml" class="pure-button pure-button-primary">Get Started</a>
         </p>
     </div>
 </div>

@@ -4,7 +4,7 @@
 	<description>This is an example to show you some of the features of the inference engine.</description>
 
 	<!-- 
-	The goal of our program is to give one advice: which program should you follow.
+	The goal of our program is to give one advice: what is wrong with your car.
 
 	Note the goal name parameter: this is the name of the fact that the solver will try to deduce. Each answer has a value which that fact can have.
 
@@ -16,8 +16,8 @@
 
 	If none of the answer-clauses match, and there is no fallback answer-clause without a value, the system won't know what to print and not show the goal at all. You can use this to make an advisor like system by making all possible advises seperate goals and only providing an answer for when that goal is 'yes' or 'true' or whatever value you conceive for a certain advice being applicable.
 	-->
-	<goal name="program">
-		<answer value="AI">Artificial Intelligence.</answer>
+	<goal name="identified_problem">
+		<answer value="The wheels are blocked">Wheels.</answer>
 		<answer value="CS">Computing Science</answer>
 		<answer value="Phi">Philosophy</answer>
 		<answer value="Psy">Psychology</answer>
@@ -34,250 +34,265 @@
 
 	In the <fact> clauses you can use variables for both the name argument and the value. It will then use the value of that fact you are referring to as if it has been there instead. If that fact you use as a variable is not yet derived, the solver will do that for you.
 	-->
-	<rule>
-		<description>Qualifications for AI</description>
-		<if>
-			<and>
-				<fact name="general_math_level">beta</fact>
-				<or>
-					<fact name="likes">robots</fact>
-					<fact name="likes">agents</fact>
-					<fact name="likes">NLP</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="program">AI</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Qualifications for CS</description>
-		<if>
-			<and>
-				<fact name="general_math_level">beta</fact>
-				<or>
-					<fact name="likes">programming</fact>
-					<fact name="likes">computer architecture</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="program">CS</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Qualifications for psychology</description>
-		<if>
-			<fact name="likes">people</fact>
-		</if>
-		<then>
-			<fact name="program">Psy</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Qualifications for philosophy</description>
-		<if>
-			<fact name="likes">thinking</fact>
-		</if>
-		<then>
-			<fact name="program">Phi</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Qualifications for architecture</description>
-		<if>
-			<fact name="likes">designing</fact>
-		</if>
-		<then>
-			<fact name="program">Architecture</fact>
-		</then>
-	</rule>
-
-	<!--
-	Having intermediate rules is pretty much always a good idea. This one will derive general_math_level, which is later on (or more exactly in the rules above this one) used to determine the program, which was our goal.
-	-->
-	<rule>
-		<description>Your general math level (less specific, will make other rules easier to write)</description>
-		<if>
-			<or>
-				<fact name="math_level">B1</fact>
-				<fact name="math_level">B2</fact>
-				<fact name="math_level">D</fact>
-			</or>
-		</if>
-		<then>
-			<fact name="general_math_level">beta</fact>
-		</then>
-	</rule>
-
-	<!--
-	It is perfectly valid to have two separate rules with the same <then>-clause, the same consequences. general_math_level will be 'beta' if either of the rules is true. Which one is first tried depends on which facts from the <if>-clause are higher on the goal stack.
-	-->
-	<rule>
-		<description>If you followed astropyhics or artificial intelligence, we know your math is just fine.</description>
-		<if>
-			<or>
-				<fact name="previous_program">Artificial Intelligence</fact>
-				<fact name="previous_program">Astrophysics</fact>
-			</or>
-		</if>
-		<then>
-			<fact name="previous_math_level">beta</fact>
-		</then>
-	</rule>
-
-	<!--
-	Here a variable is used to link the value from the previous_math_level fact to the general_math_level fact if and only if previous_program is 'none'. The value of previous_math_level does not need to be known yet, and is only deduced if this rule was true and the value of general_math_level is queried by the solver.
-	-->
-	<rule>
-		<description>Your general math level stays the same if you followed a previous program at the university.</description>
-		<if>
-			<not>
-				<fact name="previous_program">none</fact>
-			</not>
-		</if>
-		<then>
-			<fact name="general_math_level">$previous_math_level</fact>
-		</then>
-	</rule>
-
-	<!--
-	And finally, to get user input, you can ask questions. Each question has its own set of consequences in the <then>-clause, and these could be multiple. You can even mix multiple facts in the same question. However, it does make it rather difficult to reason about what the solver does.
-
-	Again, you can use variables in both the fact names and values and in the texts of the descriptions. However, variables in the latter one are not guaranteed to be derived before the question is printed, so use those sparsely and know what you are doing.
-	-->
+<question>
+        <description>What is wrong with your car?</description>
+        <option>
+            <description>It doesn't start.</description>
+            <then>
+                <fact name="problem">Does not start</fact>
+            </then>
+        </option>
+        <option>
+            <description>It makes weird noises.</description>
+            <then>
+                <fact name="problem">Makes weird noises</fact>
+            </then>
+        </option>
+        <option>
+            <description>The wheels wear down too fast.</description>
+            <then>
+                <fact name="problem">Wheels wear down</fact>
+            </then>
+        </option>
+        <option>
+            <description>Poor Fuel Economy</description>
+            <then>
+                <fact name="problem">Fuel economy</fact>
+            </then>
+        </option>
+        <option>
+            <description>The coolant temperature is too high.</description>
+            <then>
+                <fact name="problem">Coolant temperature</fact>
+            </then>
+        </option>
+        <option>
+            <description>The engine stalls.</description>
+            <then>
+                <fact name="problem">Engine stalling</fact>
+            </then>
+        </option>
+        <option>
+            <description>My gearbox is not working properly.</description>
+            <then>
+                <fact name="problem">Gearbox not working</fact>
+            </then>
+        </option>
+        <option>
+            <description>Steering wheel vibrates.</description>
+            <then>
+                <fact name="problem">Steering wheel vibrating</fact>
+            </then>
+        </option>
+    </question>
+ 
+   <question>
+      <description>Do you have a manual or an automatic gearbox?</description> 
+      <option>
+         <description>I have a manual.</description>
+         <then>
+            <fact name="type_gearbox">Manual</fact>
+         <then>
+      </option>
+      <option>
+         <description>I have an automatic</description>
+         <then>
+            <fact name="type_gearbox">Automatic</fact>
+         <then>
+      </option>
+   </question>
+ 
+   <question>
+      <description>Does the car make a sound when you try to start it?</description> 
+      <option>
+         <description>It sounds like it is starting, but it fails.</description>
+         <then>
+            <fact name="start_with_sound">Yes</fact>
+         <then>
+      </option>
+      <option>
+         <description>It makes a small click.</description>
+         <then>
+            <fact name="start_with_sound">barely</fact>
+         <then>
+      </option>
+          <option>
+         <description>It does not make any sound.</description>
+         <then>
+            <fact name="start_with_sound">No</fact>
+         <then>
+      </option>
+ 
+   </question>
+ 
+   <question>
+      <description>Does the engine stall when you drive backwards?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="engine_stalls_backwards">Yes</fact>
+         <then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="engine_stalls_backwards">No</fact>
+         <then>
+      </option>
+   </question>
+ 
+    <question>
+        <description>Have you changed the battery in the last 7 years?</description>
+        <option>
+            <description>I changed it recently.</description>
+            <then>
+                <fact name="old_battery">No</fact>
+            </then>
+        </option>
+        <option>
+            <description>I changed it 5 to 7 years ago.</description>
+            <then>
+                <fact name="old_battery">Possibly</fact>
+            </then>
+        </option>
+        <option>
+            <description>I have not changed it for more than 7 years.</description>
+            <then>
+                <fact name="old_battery">Yes</fact>
+            </then>
+        </option>
+      </question>
+ 
+    <question>
+        <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off? -> broken electromotor?</description>
+        <option>
+            <description>No.</description>
+            <then>
+                <fact name="depleted_battery">No</fact>
+            </then>
+        </option>
+        <option>
+            <description>Yes, but less than five hours.</description>
+            <then>
+                <fact name="depleted_battery">Possibly</fact>
+            </then>
+        </option>
+        <option>
+            <description>Yes, for more than five hours.</description>
+            <then>
+                <fact name="depleted_battery">Yes</fact>
+            </then>
+        </option>
+    </question>
+ 
+    <question>
+        <description>[Asked if answer to depleted_battery is no or possibly] Is there a green dot visible on your battery?</description>
+        <option>
+            <description>Yes.</description>
+            <then>
+                <fact name="green_dot">Yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>The indicator is dark green and the dot is not there.</description>
+            <then>
+                <fact name="green_dot">Should charge</fact>
+            </then>
+        </option>
+        <option>
+            <description>The dot is clear or yellow.</description>
+            <then>
+                <fact name="green_dot">Replace battery</fact>
+            </then>
+        </option>
+	
+        <option>
+	<description> I do not have an indicator.</description>
+	<then>
+		<fact name="green_dot">Unknown</fact>
+	</then>
+         </option>
+    </question>
+ 
+    
 	<question>
-		<description>What is wrong with your car?</description>
+		<description>[Asked if Does not start -- not sure if correctly placed (ask Expert)] Is your car key functioning normally?</description>
 		<option>
-			<description>It doesn't start.</description>
+			<description>The car does not unlock when using the key.</description>
 			<then>
-				<fact name="likes">robots</fact>
+				<fact name="car_key">dead</fact>
 			</then>
 		</option>
 		<option>
-			<description>It makes weird noises.</description>
+			<description>The car key works sometimes.</description>
 			<then>
-				<fact name="likes">agents</fact>
+				<fact name="car_key">almost dead</fact>
 			</then>
 		</option>
 		<option>
-			<description>The wheels wear down too fast.</description>
+			<description>Yes.</description>
 			<then>
-				<fact name="likes">NLP</fact>
+				<fact name="car_key">works</fact>
 			</then>
 		</option>
-		<option>
-			<description>Poor Fuel Economy</description>
-			<then>
-				<fact name="likes">programming</fact>
-			</then>
-		</option>
-		<option>
-			<description>The coolant temperature is too high.</description>
-			<then>
-				<fact name="likes">computer architecture</fact>
-			</then>
-		</option>
-		<option>
-			<description>The engine stalls.</description>
-			<then>
-				<fact name="likes">people</fact>
-			</then>
-		</option>
-		<option>
-			<description>My gearbox is not working properly.</description>
-			<then>
-				<fact name="likes">thinking</fact>
-			</then>
-		</option>
-		<option>
-			<description>Steering wheel vibrates.</description>
-			<then>
-				<fact name="likes">designing</fact>
-			</then>
-		</option>
-	</question>
+    </question> 
+	
+ 
+   <question>
+      <description>When do you hear the weird noise?</description> 
+      <option>
+         <description>Only when I brake.</description>
+         <then>
+            <fact name="when_weird_sound">When braking</fact>
+         <then>
+      </option>
+      <option>
+         <description>Always when I am driving.</description>
+         <then>
+            <fact name="when_weird_sounds">Always</fact>
+         <then>
+      </option>
+   </question>
 
-	<question>
-		<description>What math level did you follow during highschool? (Old second phase system)</description>
-		<option>
-			<description>A1</description>
-			<then>
-				<fact name="math_level">A1</fact>
-			</then>
-		</option>
-		<option>
-			<description>A2</description>
-			<then>
-				<fact name="math_level">A2</fact>
-			</then>
-		</option>
-		<option>
-			<description>B1</description>
-			<then>
-				<fact name="math_level">B1</fact>
-			</then>
-		</option>
-		<option>
-			<description>B2</description>
-			<then>
-				<fact name="math_level">B2</fact>
-			</then>
-		</option>
-		<option>
-			<description>D</description>
-			<then>
-				<fact name="math_level">D</fact>
-			</then>
-		</option>
-	</question>
+   <question>
+      <description>What does the noise sound like?</description> 
+      <option>
+         <description>It sounds like something is hit with an iron hammer.</description>
+         <then>
+            <fact name="what_sound">Iron hammer</fact>
+         <then>
+      </option>
+      <option>
+         <description>It sounds like a constant rumbling.</description>
+         <then>
+            <fact name="what_sound">Rumbling</fact>
+         <then>
+      </option>
+   </question>
 
-	<question>
-		<description>Did you follow a different program at the univeristy?</description>
-		<option>
-			<description>Astrophysics</description>
-			<then>
-				<fact name="previous_program">Astrophysics</fact>
-			</then>
-		</option>
-		<option>
-			<description>Artificial Intelligence</description>
-			<then>
-				<fact name="previous_program">Artificial Intelligence</fact>
-			</then>
-		</option>
-		<option>
-			<description>Yes, but not something in this list</description>
-			<then>
-				<fact name="previous_program">something</fact>
-			</then>
-		</option>
-		<option>
-			<description>No</description>
-			<then>
-				<fact name="previous_program">none</fact>
-			</then>
-		</option>
-	</question>
-
-	<question>
-		<description>How would you qualify the math in your previous program?</description>
-		<option>
-			<description>Of a Beta level</description>
-			<then>
-				<fact name="previous_math_level">beta</fact>
-			</then>
-		</option>
-		<option>
-			<description>Of an Alfa level</description>
-			<then>
-				<fact name="previous_math_level">alfa</fact>
-			</then>
-		</option>
-	</question>
-
-</knowledge>
+<!--  Rules -->
+    <rule>
+        <description>If engine stalls when driving backwards, wheels are blocked</description>  
+        <if>
+            <and>
+                <fact name="problem">Engine stalling</fact>
+                <fact name="engine_stalling_backwards">Yes</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">The wheels are blocked</fact>
+       </then>
+    </rule>
+ 
+    <rule>
+        <description>If you only hear the sound when braking, braking discs are deteriorated</description>  
+        <if>
+            <and>
+                <fact name="problem">Makes weird noises</fact>
+                <fact name="when_weird_sound">When braking</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">The braking discs are deteriorated</fact>
+       </then>
+    </rule>

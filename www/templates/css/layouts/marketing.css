@@ -101,7 +101,7 @@ a.pure-button-primary {
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
 .home-menu {
-    background: #2d3e50;
+    background: #3E3549;
 }
 .pure-menu.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */
@@ -111,17 +111,17 @@ a.pure-button-primary {
 }
 
 .home-menu .pure-menu-heading {
-    color: white;
+    color: #EABD38;
     font-weight: 400;
     font-size: 120%;
 }
 
 .home-menu .pure-menu-selected a {
-    color: white;
+    color: #EAA02C;
 }
 
 .home-menu a {
-    color: #6FBEF3;
+    color: #EABD38;
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
@@ -150,7 +150,7 @@ a.pure-button-primary {
  */
 
 .splash-container {
-    background: #1f8dd6;
+    background: #736D82;
     z-index: 1;
     overflow: hidden;
     /* The following styles are required for the "scroll-over" effect */
@@ -183,7 +183,7 @@ a.pure-button-primary {
 .splash-head {
     font-size: 20px;
     font-weight: bold;
-    color: white;
+    color: #C6BFCE;
     /* border: 3px solid white; */
     padding: 0.1em;
     font-weight: 100;

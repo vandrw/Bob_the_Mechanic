@@ -17,12 +17,12 @@
 	If none of the answer-clauses match, and there is no fallback answer-clause without a value, the system won't know what to print and not show the goal at all. You can use this to make an advisor like system by making all possible advises seperate goals and only providing an answer for when that goal is 'yes' or 'true' or whatever value you conceive for a certain advice being applicable.
 	-->
 	<goal name="identified_problem">
-		<answer value="The wheels are blocked">Wheels.</answer>
-		<answer value="CS">Computing Science</answer>
-		<answer value="Phi">Philosophy</answer>
-		<answer value="Psy">Psychology</answer>
+		<answer value="blocked wheels">The wheels are blocked, possibly by the hand-brake.</answer>
+		<answer value="breaking disks">The breaking disks are deteriorated.</answer>
+		<answer value="manual gearbox">The problem is your gear box.</answer>
+		<answer value="automatic gearbox">The problem is your automatic transmission.</answer>
 		<answer value="$undefined">I don't know what you should do, sorry…</answer>
-		<answer>Something else, namely $program.</answer>
+		<answer>Something else, namely .</answer>
 	</goal>
 
 	<!--
@@ -34,6 +34,62 @@
 
 	In the <fact> clauses you can use variables for both the name argument and the value. It will then use the value of that fact you are referring to as if it has been there instead. If that fact you use as a variable is not yet derived, the solver will do that for you.
 	-->
+
+<!--  Rules -->
+<rule>
+    <description>If engine stalls when driving backwards, wheels are blocked</description>  
+    <if>
+        <and>
+            <fact name="problem">Engine stalling</fact>
+            <fact name="engine_stalling_backwards">Yes</fact>
+        </and>
+    </if>
+    <then>
+        <fact name="identified_problem">The wheels are blocked</fact>
+    </then>
+</rule>
+
+<rule>
+    <description>If you only hear the sound when braking, braking discs are deteriorated</description>  
+    <if>
+        <and>
+            <fact name="problem">Makes weird noises</fact>
+            <fact name="when_weird_sound">When braking</fact>
+        </and>
+    </if>
+    <then>
+        <fact name="identified_problem">breaking disks</fact>
+    </then>
+</rule>
+
+<rule>
+    <description>[To be changed] If you have problems with your manual gearbox, then it is your transmission.</description>  
+    <if>
+        <and>
+            <fact name="problem">Gearbox not working</fact>
+            <fact name="type_gearbox">Manual</fact>
+        </and>
+    </if>
+    <then>
+        <fact name="identified_problem">manual gearbox</fact>
+    </then>
+</rule>
+
+<rule>
+    <description>[To be changed] If you have problems with your automatic gearbox, then it is your transmission.</description>  
+    <if>
+        <and>
+            <fact name="problem">Gearbox not working</fact>
+            <fact name="type_gearbox">Automatic</fact>
+        </and>
+    </if>
+    <then>
+        <fact name="identified_problem">automatic gearbox</fact>
+    </then>
+</rule>
+
+<!-- Questions -->
+
 <question>
         <description>What is wrong with your car?</description>
         <option>
@@ -92,13 +148,13 @@
          <description>I have a manual.</description>
          <then>
             <fact name="type_gearbox">Manual</fact>
-         <then>
+         </then>
       </option>
       <option>
          <description>I have an automatic</description>
          <then>
             <fact name="type_gearbox">Automatic</fact>
-         <then>
+         </then>
       </option>
    </question>
  
@@ -108,19 +164,13 @@
          <description>It sounds like it is starting, but it fails.</description>
          <then>
             <fact name="start_with_sound">Yes</fact>
-         <then>
+         </then>
       </option>
       <option>
-         <description>It makes a small click.</description>
-         <then>
-            <fact name="start_with_sound">barely</fact>
-         <then>
-      </option>
-          <option>
          <description>It does not make any sound.</description>
          <then>
             <fact name="start_with_sound">No</fact>
-         <then>
+         </then>
       </option>
  
    </question>
@@ -131,13 +181,13 @@
          <description>Yes</description>
          <then>
             <fact name="engine_stalls_backwards">Yes</fact>
-         <then>
+         </then>
       </option>
       <option>
          <description>No</description>
          <then>
             <fact name="engine_stalls_backwards">No</fact>
-         <then>
+         </then>
       </option>
    </question>
  
@@ -244,13 +294,13 @@
          <description>Only when I brake.</description>
          <then>
             <fact name="when_weird_sound">When braking</fact>
-         <then>
+         </then>
       </option>
       <option>
          <description>Always when I am driving.</description>
          <then>
             <fact name="when_weird_sounds">Always</fact>
-         <then>
+         </then>
       </option>
    </question>
 
@@ -260,39 +310,14 @@
          <description>It sounds like something is hit with an iron hammer.</description>
          <then>
             <fact name="what_sound">Iron hammer</fact>
-         <then>
+         </then>
       </option>
       <option>
          <description>It sounds like a constant rumbling.</description>
          <then>
             <fact name="what_sound">Rumbling</fact>
-         <then>
+         </then>
       </option>
    </question>
 
-<!--  Rules -->
-    <rule>
-        <description>If engine stalls when driving backwards, wheels are blocked</description>  
-        <if>
-            <and>
-                <fact name="problem">Engine stalling</fact>
-                <fact name="engine_stalling_backwards">Yes</fact>
-            </and>
-        </if>
-       <then>
-          <fact name="identified_problem">The wheels are blocked</fact>
-       </then>
-    </rule>
- 
-    <rule>
-        <description>If you only hear the sound when braking, braking discs are deteriorated</description>  
-        <if>
-            <and>
-                <fact name="problem">Makes weird noises</fact>
-                <fact name="when_weird_sound">When braking</fact>
-            </and>
-        </if>
-       <then>
-          <fact name="identified_problem">The braking discs are deteriorated</fact>
-       </then>
-    </rule>
+</knowledge>

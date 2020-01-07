@@ -37,6 +37,19 @@
 
 <!--  Rules -->
 <rule>
+    <description>If the care does not start with a sound, it is an issue with the electromotor.</description>  
+    <if>
+        <and>
+            <fact name="problem">Does Not Start</fact>
+            <fact name="start_with_sound">No</fact>
+        </and>
+    </if>
+    <then>
+        <fact name="identified_problem">The electromotor is fo' sho. [change this]</fact>
+    </then>
+</rule>
+
+<rule>
     <description>If engine stalls when driving backwards, wheels are blocked</description>  
     <if>
         <and>
@@ -192,7 +205,7 @@
    </question>
  
     <question>
-        <description>Have you changed the battery in the last 7 years?</description>
+        <description>Have you changed the battery in the last 3 years?</description>
         <option>
             <description>I changed it recently.</description>
             <then>
@@ -200,13 +213,13 @@
             </then>
         </option>
         <option>
-            <description>I changed it 5 to 7 years ago.</description>
+            <description>I changed it 2 to 3 years ago.</description>
             <then>
                 <fact name="old_battery">Possibly</fact>
             </then>
         </option>
         <option>
-            <description>I have not changed it for more than 7 years.</description>
+            <description>I have not changed it for more than 3 years.</description>
             <then>
                 <fact name="old_battery">Yes</fact>
             </then>
@@ -214,7 +227,7 @@
       </question>
  
     <question>
-        <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off? -> broken electromotor?</description>
+        <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off?</description>
         <option>
             <description>No.</description>
             <then>

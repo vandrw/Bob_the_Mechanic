@@ -16,13 +16,28 @@
 
 	If none of the answer-clauses match, and there is no fallback answer-clause without a value, the system won't know what to print and not show the goal at all. You can use this to make an advisor like system by making all possible advises seperate goals and only providing an answer for when that goal is 'yes' or 'true' or whatever value you conceive for a certain advice being applicable.
 	-->
+    
 	<goal name="identified_problem">
-		<answer value="blocked wheels">The wheels are blocked, possibly by the hand-brake.</answer>
-		<answer value="breaking disks">The breaking disks are deteriorated.</answer>
-		<answer value="manual gearbox">The problem is your gear box.</answer>
-		<answer value="automatic gearbox">The problem is your automatic transmission.</answer>
-		<answer value="$undefined">I don't know what you should do, sorry…</answer>
-		<answer>Something else, namely .</answer>
+		<answer value="The wheels are blocked">Wheels are blocked.</answer>
+		<answer value="Flat tyre">To be completed</answer>
+        <answer value="Air filters">Change the air filters regularly to reduce fuel consumption. You should be changing them when you also change the oil, roughly every 10.000-15.000 km. </answer>
+        <answer value="Fuel filters">Change the fuel filters regularly to reduce fuel consumption. You should be changing them half as often as you change the oil, roughly every 15.000 km. </answer>
+        <answer value="Toe needs adjusting">The angle of wheels (toe) needs adjusting</answer>
+	    <answer value="Driving style manual">Use the appropriate gears when driving to reduce consumption. If the problem persists, go to a mechanic.</answer>
+	    <answer value="Driving style automatic">Avoid accelerating suddenly to reduce consumption. If the problem persists, go to a mechanic.</answer>
+        <answer value="Antifreeze leaks">The antifreeze liquid is leaking which causes the coolant to overheat.</answer>
+        <answer value="Change oil">You should change the oil.</answer>
+        <answer value="Broken brake plates">The brake plates are deteriorated and should be replaced.</answer>
+        <answer value="Shock absorber">The shock absorber (damper) is deteriorated.</answer>
+        <answer value="Wheel bearings">The wheel baerings are deteriorated, most likely because they were not properly oiled.</answer>
+        <answer value="Alternator">The alternator is not working properly, it is likely not re-charging the battery anymore.</answer>
+        <answer value="Low battery">The battery is too low and needs to be charged.</answer>
+        <answer value="Electromotor">The electric motor is broken.</answer>
+        <answer value="Wiring">The battery is low and it is likely due to faulty wiring of the headlights or dashboard lights.</answer>
+        <answer value="Spark plug">There is an issue with the spark plug, it is likely worn out or the sensor wiring is faulty.</answer>
+        <answer value="Injection">There is a problem with the injection pump.</answer>
+        <answer value="$undefined">I don't know what you should do, sorry…</answer>
+		<answer>Something else, namely $program.</answer>
 	</goal>
 
 	<!--
@@ -36,79 +51,656 @@
 	-->
 
 <!--  Rules -->
-<rule>
-    <description>If the care does not start with a sound, it is an issue with the electromotor.</description>  
-    <if>
-        <and>
-            <fact name="problem">Does Not Start</fact>
-            <fact name="start_with_sound">No</fact>
-        </and>
-    </if>
-    <then>
-        <fact name="identified_problem">The electromotor is fo' sho. [change this]</fact>
-    </then>
-</rule>
 
-<rule>
-    <description>If engine stalls when driving backwards, wheels are blocked</description>  
-    <if>
-        <and>
-            <fact name="problem">Engine stalling</fact>
-            <fact name="engine_stalling_backwards">Yes</fact>
-        </and>
-    </if>
-    <then>
-        <fact name="identified_problem">The wheels are blocked</fact>
-    </then>
-</rule>
+    <!--  Rules for engine stalling problem-->
+    <rule>
+        <description>If engine stalls when driving backwards, wheels are blocked</description>  
+        <if>
+            <and>
+                <fact name="problem">Engine stalling</fact>
+                <fact name="engine_stalling_backwards">Yes</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">The wheels are blocked</fact>
+       </then>
+    </rule>
+ 
+    <!--  Rules for noise and steering wheel vibrating -->
+    <rule>
+        <description>If there is always a sound, vibrations, no straight direction</description>  
+        <if>
+            <and>
+                <or>
+                    <and>
+                        <fact name="problem">Makes weird noises</fact>
+                        <fact name="steering_wheel">Vibrates</fact>
+                    </and>
+                    <fact name="problem">Steering wheel vibrating</fact>
+                </or>
+                <fact name="sound">Always</fact>
+                <fact name="car_direction">No</fact>
+                <fact name="flat_tyre">No</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Loose wheel</fact>
+       </then>
+    </rule>
 
-<rule>
-    <description>If you only hear the sound when braking, braking discs are deteriorated</description>  
-    <if>
-        <and>
-            <fact name="problem">Makes weird noises</fact>
-            <fact name="when_weird_sound">When braking</fact>
-        </and>
-    </if>
-    <then>
-        <fact name="identified_problem">breaking disks</fact>
-    </then>
-</rule>
+    <!-- <rule>
+        <description>If the tyre is flat</description>  
+        <if>
+            <fact name="flat_tyre">Yes</fact>
+        </if>
+       <then>
+          <fact name="identified_problem">Flat tyre</fact>
+       </then>
+    </rule> -->
 
-<rule>
-    <description>[To be changed] If you have problems with your manual gearbox, then it is your transmission.</description>  
-    <if>
-        <and>
-            <fact name="problem">Gearbox not working</fact>
-            <fact name="type_gearbox">Manual</fact>
-        </and>
-    </if>
-    <then>
-        <fact name="identified_problem">manual gearbox</fact>
-    </then>
-</rule>
+    <!--  Rules for noises -->
+    <rule>
+        <description>If there is always a sound, but no steering wheel vibrations</description>  
+        <if>
+            <and>
+                <fact name="problem">Makes weird sounds</fact>
+                <fact name="sound">Always</fact>
+                <fact name="sound_source">Wheel</fact>
+                <fact name="steering_wheel">Still</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Deteriorated bearings</fact>
+       </then>
+    </rule>
 
-<rule>
-    <description>[To be changed] If you have problems with your automatic gearbox, then it is your transmission.</description>  
-    <if>
-        <and>
-            <fact name="problem">Gearbox not working</fact>
-            <fact name="type_gearbox">Automatic</fact>
-        </and>
-    </if>
-    <then>
-        <fact name="identified_problem">automatic gearbox</fact>
-    </then>
-</rule>
+    <rule>
+        <description>If there is always a sound and the wheels are deteriorated</description>  
+        <if>
+            <or>
+                <and>
+                    <fact name="problem">Wheels wear down</fact>
+                    <fact name="sound">Always</fact>
+                </and>
+                <and>
+                    <fact name="problem">Makes weird noises</fact>
+                    <fact name="wheels">Worn down</fact>
+                </and>
+            </or>
+        </if>
+       <then>
+          <fact name="identified_problem">Toe needs adjusting</fact>
+       </then>
+    </rule>
 
-<!-- Questions -->
+    <rule>
+        <description>Weird noises when braking that sound like an iron hammer</description>  
+        <if>
+            <and>
+               <fact name="problem">Makes weird noises</fact>
+               <fact name="sound">Braking</fact>
+               <fact name="sound_type">Iron hammer</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Broken brake plates</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>Weird noises that sound like an iron hammer, and wheels are loose</description>  
+        <if>
+            <and>
+               <fact name="problem">Makes weird noises</fact>
+               <fact name="sound">Always</fact>
+               <fact name="sound_type">Iron hammer</fact>
+               <fact name="wheels">Loose</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Shock absorber</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>Weird rumbling noises</description>  
+        <if>
+            <and>
+               <fact name="problem">Makes weird noises</fact>
+               <fact name="sound">Always</fact>
+               <fact name="sound_type">Rumbling</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Wheel bearings</fact>
+       </then>
+    </rule>
+
+    <!--  Rules for high consumption-->
+    <rule>
+        <description>High fuel consumption from air filters</description>  
+        <if>
+            <and>
+               <fact name="problem">Fuel economy</fact>
+               <fact name="air_filters">Old</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Air filters</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>High fuel consumption from fuel filters</description>  
+        <if>
+            <and>
+               <fact name="problem">Fuel economy</fact>
+               <fact name="fuel_filters">Old</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Fuel filters</fact>
+       </then>
+    </rule>
+
+     <rule>
+        <description>High fuel consumption from spark plug malfunction</description>  
+        <if>
+            <and>
+               <fact name="problem">Fuel economy</fact>
+               <fact name="fuel_filters">New</fact>
+               <fact name="air_filters">New</fact>
+               <or>
+                 <fact name="accelerates">Slow</fact>
+                 <fact name="engine">Misfires</fact>
+               </or>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Spark plug</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>High fuel consumption from injection pump</description>  
+        <if>
+            <and>
+               <fact name="problem">Fuel economy</fact>
+               <fact name="fuel_filters">New</fact>
+               <fact name="air_filters">New</fact>
+               <or>
+                 <fact name="engine">Weak</fact>
+                 <fact name="engine">Not smooth</fact>
+               </or>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Injection pump</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>High fuel consumption from driving style manual</description>  
+        <if>
+            <and>
+               <fact name="problem">Fuel economy</fact>
+               <fact name="fuel_filters">New</fact>
+               <fact name="air_filters">New</fact>
+               <fact name="accelerates">Normal</fact>
+               <fact name="engine">Normal</fact>
+               <fact name="type_gearbox">Manual</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Driving style manual</fact>
+       </then>
+    </rule>
+    
+    <rule>
+        <description>High fuel consumption from driving style automatic</description>  
+        <if>
+            <and>
+               <fact name="problem">Fuel economy</fact>
+               <fact name="fuel_filters">New</fact>
+               <fact name="air_filters">New</fact>
+               <fact name="accelerates">Normal</fact>
+               <fact name="engine">Normal</fact>
+               <fact name="type_gearbox">Automatic</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Driving style automatic</fact>
+       </then>
+    </rule>
+    
+
+
+    <!--  Rules for overheating-->
+    <rule>
+        <description>Overheating</description>  
+        <if>
+            <and>
+               <fact name="problem">Coolant temperature</fact>
+               <fact name="coolant_temperature">Always</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Antifreeze leaks</fact>
+       </then>
+    </rule>
+    
+    <!--  Rules for car not moving (but starting) -->
+    <rule>
+        <description>Car starts but doesn't move (manual)</description>  
+        <if>
+            <and>
+               <fact name="problem">Car not moving</fact>
+               <fact name="type_gearbox">Manual</fact>
+               <fact name="clutch">Loose</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Clutch</fact>
+       </then>
+    </rule>
+    
+    <rule>
+        <description>Car starts but doesn't move (general)</description>  
+        <if>
+            <and>
+               <fact name="problem">Car not moving</fact>
+               <fact name="oil">Old</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Change oil</fact>
+       </then>
+    </rule>
+
+    <!--  Rules for car not starting -->
+    <rule>
+        <description>Car not starting with sound alternator</description>  
+        <if>
+            <and>
+               <fact name="problem">Car not starting</fact>
+               <fact name="start_with_sound">Yes</fact>
+               <fact name="green_dot">Low battery</fact>
+               <fact name="battery">New</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Alternator</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>Car not starting with sound low battery</description>  
+        <if>
+            <and>
+                <fact name="problem">Car not starting</fact>
+                <fact name="start_with_sound">Yes</fact>
+                <or>
+                    <fact name="lights">Dim</fact>
+                    <fact name="lights">Flicker</fact>
+                </or>
+               <fact name="green_dot">Low battery</fact>
+               <fact name="lights_on">No</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Low battery</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>Car not starting with sound low battery, bad wires</description>  
+        <if>
+            <and>
+               <fact name="problem">Car not starting</fact>
+               <fact name="start_with_sound">Yes</fact>
+               <or>
+                    <fact name="lights">Dim</fact>
+                    <fact name="lights">Flicker</fact>
+                </or>
+               <fact name="green_dot">Low battery</fact>
+               <fact name="lights_on">Yes</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Wiring</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>Car not starting with sound electromotor</description>  
+        <if>
+            <and>
+                <fact name="problem">Car not starting</fact>
+                <fact name="start_with_sound">Yes</fact>
+                <fact name="lights">Normal</fact>
+                <fact name="green_dot">Normal</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Electromotor</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>Car not starting with sound electrolytes</description>  
+        <if>
+            <and>
+               <fact name="problem">Car not starting</fact>
+               <fact name="start_with_sound">Yes</fact>
+               <or>
+                    <fact name="lights">Dim</fact>
+                    <fact name="lights">Flicker</fact>
+                </or>
+               <fact name="green_dot">Low electrolytes</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Electrolytes</fact>
+       </then>
+    </rule>
+
+    <rule>
+        <description>Car not starting with sound alternator</description>  
+        <if>
+            <and>
+               <fact name="problem">Makes weird noises</fact>
+               <fact name="sound">Rattling</fact>
+            </and>
+        </if>
+       <then>
+          <fact name="identified_problem">Alternator</fact>
+       </then>
+    </rule>
+
+<!--  Questions -->
+
+<question>
+    <description>Are there any problems with the engine?</description> 
+      <option>
+         <description>It misfires</description>
+         <then>
+            <fact name="engine">Misfires</fact>
+         </then>
+      </option>
+      <option>
+         <description>It doesn't run as smoothly, especially when accelerating</description>
+         <then>
+            <fact name="engine">Not smooth</fact>
+         </then>
+      </option>
+      <option>
+         <description>It seems weaker</description>
+         <then>
+            <fact name="engine">Weak</fact>
+         </then>
+      </option>
+      <option>
+         <description>It seems normal</description>
+         <then>
+            <fact name="engine">Normal</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+    <description>Have you notice that your car accelerates slower than it used to?</description> 
+      <option>
+         <description>Yes, this is the case</description>
+         <then>
+            <fact name="acceleration">Slower</fact>
+         </then>
+      </option>
+      <option>
+         <description>No, this is not the case</description>
+         <then>
+            <fact name="acceleration">Normal</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+    <description>Has the battery been replaced recently?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="battery">New</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="battery">Old</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Check your dashboad and headlights!</description> 
+      <option>
+         <description>They seem fine</description>
+         <then>
+            <fact name="lights">Normal</fact>
+         </then>
+      </option>
+      <option>
+         <description>They seem dim</description>
+         <then>
+            <fact name="lights">Dim</fact>
+         </then>
+      </option>
+      <option>
+         <description>They flicker</description>
+         <then>
+            <fact name="lights">Flicker</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+    <description>Do the headlights or dashboard lights remain on after turning off the engine?</description>
+    <option>
+         <description>The lights remain on after turning the engine off</description>
+         <then>
+            <fact name="lights_on">Yes</fact>
+         </then>
+    </option>
+    <option>
+         <description>The lights turn off properly</description>
+         <then>
+            <fact name="lights_on">No</fact>
+         </then>
+    </option>
+</question>
+
+<question>
+      <description>Does the clutch feel loose?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="clutch">Loose</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="clutch">Normal</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Did you change the oil recently?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="oil">New</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="oil">Old</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Is the coolant tmeperature always high? (higher than 98 degrees)</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="coolant_temperature">Always</fact>
+         </then>
+      </option>
+      <option>
+         <description>Only when driving</description>
+         <then>
+            <fact name="coolant_temperature">Normal</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Do you change the air filters regularly?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="air_filters">New</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="air_filters">Old</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Do you change the fuel filters regularly?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="fuel_filters">New</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="fuel_filters">Old</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Do the tyres seem in good condition?</description> 
+      <option>
+         <description>No, they are deteriorated</description>
+         <then>
+            <fact name="wheels">Worn down</fact>
+         </then>
+      </option>
+      <option>
+         <description>Yes, they are fine</description>
+         <then>
+            <fact name="wheels">Normal</fact>
+         </then>
+      </option>
+      <option>
+         <description>No, they are defalted and the wheels feel loose when driving</description>
+         <then>
+            <fact name="wheels">Loose</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>When you are driving, is the car maintaining its direction?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="car_direction">Yes</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="car_direction">No</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Does it seem like the sound is coming from a wheel?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="sound_source">Wheel</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="sound_source">No</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Is the steering wheel vibrating?</description> 
+      <option>
+         <description>Vibrates</description>
+         <then>
+            <fact name="steering_wheel">Vibrates</fact>
+         </then>
+      </option>
+      <option>
+         <description>Doesn't vibrate</description>
+         <then>
+            <fact name="steering_wheel">Still</fact>
+         </then>
+      </option>
+</question>
+
+<question>
+      <description>Is there a flat tyre?</description> 
+      <option>
+         <description>Yes</description>
+         <then>
+            <fact name="flat_tyre">Yes</fact>
+         </then>
+      </option>
+      <option>
+         <description>I'm not sure.</description>
+         <then>
+            <fact name="flat_tyre">Possibly</fact>
+         </then>
+      </option>
+      <option>
+         <description>No</description>
+         <then>
+            <fact name="flat_tyre">No</fact>
+         </then>
+      </option>
+</question>
 
 <question>
         <description>What is wrong with your car?</description>
         <option>
             <description>It doesn't start.</description>
             <then>
-                <fact name="problem">Does not start</fact>
+                <fact name="problem">Car not starting</fact>
+            </then>
+        </option>
+        <option>
+            <description>It starts, but it does not move.</description>
+            <then>
+                <fact name="problem">Car not moving</fact>
             </then>
         </option>
         <option>
@@ -124,7 +716,7 @@
             </then>
         </option>
         <option>
-            <description>Poor Fuel Economy</description>
+            <description>Poor fuel economy</description>
             <then>
                 <fact name="problem">Fuel economy</fact>
             </then>
@@ -153,184 +745,198 @@
                 <fact name="problem">Steering wheel vibrating</fact>
             </then>
         </option>
-    </question>
+</question>
  
-   <question>
-      <description>Do you have a manual or an automatic gearbox?</description> 
-      <option>
-         <description>I have a manual.</description>
-         <then>
-            <fact name="type_gearbox">Manual</fact>
-         </then>
-      </option>
-      <option>
-         <description>I have an automatic</description>
-         <then>
-            <fact name="type_gearbox">Automatic</fact>
-         </then>
-      </option>
-   </question>
- 
-   <question>
-      <description>Does the car make a sound when you try to start it?</description> 
-      <option>
-         <description>It sounds like it is starting, but it fails.</description>
-         <then>
-            <fact name="start_with_sound">Yes</fact>
-         </then>
-      </option>
-      <option>
-         <description>It does not make any sound.</description>
-         <then>
-            <fact name="start_with_sound">No</fact>
-         </then>
-      </option>
- 
-   </question>
- 
-   <question>
-      <description>Does the engine stall when you drive backwards?</description> 
-      <option>
-         <description>Yes</description>
-         <then>
-            <fact name="engine_stalls_backwards">Yes</fact>
-         </then>
-      </option>
-      <option>
-         <description>No</description>
-         <then>
-            <fact name="engine_stalls_backwards">No</fact>
-         </then>
-      </option>
-   </question>
- 
-    <question>
-        <description>Have you changed the battery in the last 3 years?</description>
-        <option>
-            <description>I changed it recently.</description>
-            <then>
-                <fact name="old_battery">No</fact>
-            </then>
-        </option>
-        <option>
-            <description>I changed it 2 to 3 years ago.</description>
-            <then>
-                <fact name="old_battery">Possibly</fact>
-            </then>
-        </option>
-        <option>
-            <description>I have not changed it for more than 3 years.</description>
-            <then>
-                <fact name="old_battery">Yes</fact>
-            </then>
-        </option>
-      </question>
- 
-    <question>
-        <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off?</description>
-        <option>
-            <description>No.</description>
-            <then>
-                <fact name="depleted_battery">No</fact>
-            </then>
-        </option>
-        <option>
-            <description>Yes, but less than five hours.</description>
-            <then>
-                <fact name="depleted_battery">Possibly</fact>
-            </then>
-        </option>
-        <option>
-            <description>Yes, for more than five hours.</description>
-            <then>
-                <fact name="depleted_battery">Yes</fact>
-            </then>
-        </option>
-    </question>
- 
-    <question>
-        <description>[Asked if answer to depleted_battery is no or possibly] Is there a green dot visible on your battery?</description>
-        <option>
-            <description>Yes.</description>
-            <then>
-                <fact name="green_dot">Yes</fact>
-            </then>
-        </option>
-        <option>
-            <description>The indicator is dark green and the dot is not there.</description>
-            <then>
-                <fact name="green_dot">Should charge</fact>
-            </then>
-        </option>
-        <option>
-            <description>The dot is clear or yellow.</description>
-            <then>
-                <fact name="green_dot">Replace battery</fact>
-            </then>
-        </option>
-	
-        <option>
-	<description> I do not have an indicator.</description>
-	<then>
-		<fact name="green_dot">Unknown</fact>
-	</then>
-         </option>
-    </question>
- 
-    
-	<question>
-		<description>[Asked if Does not start -- not sure if correctly placed (ask Expert)] Is your car key functioning normally?</description>
-		<option>
-			<description>The car does not unlock when using the key.</description>
-			<then>
-				<fact name="car_key">dead</fact>
-			</then>
-		</option>
-		<option>
-			<description>The car key works sometimes.</description>
-			<then>
-				<fact name="car_key">almost dead</fact>
-			</then>
-		</option>
-		<option>
-			<description>Yes.</description>
-			<then>
-				<fact name="car_key">works</fact>
-			</then>
-		</option>
-    </question> 
-	
- 
-   <question>
-      <description>When do you hear the weird noise?</description> 
-      <option>
-         <description>Only when I brake.</description>
-         <then>
-            <fact name="when_weird_sound">When braking</fact>
-         </then>
-      </option>
-      <option>
-         <description>Always when I am driving.</description>
-         <then>
-            <fact name="when_weird_sounds">Always</fact>
-         </then>
-      </option>
-   </question>
+<question>
+    <description>Do you have a manual or an automatic gearbox?</description> 
+    <option>
+        <description>I have a manual.</description>
+        <then>
+        <fact name="type_gearbox">Manual</fact>
+        </then>
+    </option>
+    <option>
+        <description>I have an automatic</description>
+        <then>
+        <fact name="type_gearbox">Automatic</fact>
+        </then>
+    </option>
+</question>
 
-   <question>
-      <description>What does the noise sound like?</description> 
-      <option>
-         <description>It sounds like something is hit with an iron hammer.</description>
-         <then>
-            <fact name="what_sound">Iron hammer</fact>
-         </then>
-      </option>
-      <option>
-         <description>It sounds like a constant rumbling.</description>
-         <then>
-            <fact name="what_sound">Rumbling</fact>
-         </then>
-      </option>
-   </question>
+<question>
+    <description>Does the car make a sound when you try to start it?</description> 
+    <option>
+        <description>It sounds like it is starting, but it fails.</description>
+            <then>
+                <fact name="start_with_sound">Yes</fact>
+            </then>
+    </option>
+    <option>
+        <description>It makes a small click.</description>
+            <then>
+                <fact name="start_with_sound">Barely</fact>
+            </then>
+    </option>
+        <option>
+        <description>It does not make any sound.</description>
+        <then>
+        <fact name="start_with_sound">No</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>Does the engine stall when you drive backwards?</description> 
+    <option>
+        <description>Yes</description>
+        <then>
+        <fact name="engine_stalls_backwards">Yes</fact>
+        </then>
+    </option>
+    <option>
+        <description>No</description>
+        <then>
+        <fact name="engine_stalls_backwards">No</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>Have you changed the battery in the last 7 years?</description>
+    <option>
+        <description>I changed it recently.</description>
+        <then>
+            <fact name="old_battery">No</fact>
+        </then>
+    </option>
+    <option>
+        <description>I changed it 5 to 7 years ago.</description>
+        <then>
+            <fact name="old_battery">Possibly</fact>
+        </then>
+    </option>
+    <option>
+        <description>I have not changed it for more than 7 years.</description>
+        <then>
+            <fact name="old_battery">Yes</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off? -> broken electromotor?</description>
+    <option>
+        <description>No.</description>
+        <then>
+            <fact name="depleted_battery">No</fact>
+        </then>
+    </option>
+    <option>
+        <description>Yes, but less than five hours.</description>
+        <then>
+            <fact name="depleted_battery">Possibly</fact>
+        </then>
+    </option>
+    <option>
+        <description>Yes, for more than five hours.</description>
+        <then>
+            <fact name="depleted_battery">Yes</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>[Asked if answer to depleted_battery is no or possibly] Is there a green dot visible on your battery?</description>
+    <option>
+        <description>Yes.</description>
+        <then>
+            <fact name="green_dot">Normal</fact>
+        </then>
+    </option>
+    <option>
+        <description>The indicator is dark green and the dot is not there.</description>
+        <then>
+            <fact name="green_dot">Low battery</fact>
+        </then>
+    </option>
+    <option>
+        <description>The dot is clear or yellow.</description>
+        <then>
+            <fact name="green_dot">Low electrolytes</fact>
+        </then>
+    </option>
+    <option>
+    <description> I do not have an indicator.</description>
+        <then>
+            <fact name="green_dot">Unknown</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>[Asked if Does not start -- not sure if correctly placed (ask Expert)] Is your car key functioning normally?</description>
+    <option>
+        <description>The car does not unlock when using the key.</description>
+        <then>
+            <fact name="car_key">Dead</fact>
+        </then>
+    </option>
+    <option>
+        <description>The car key works sometimes.</description>
+        <then>
+            <fact name="car_key">Almost dead</fact>
+        </then>
+    </option>
+    <option>
+        <description>Yes.</description>
+        <then>
+            <fact name="car_key">Works</fact>
+        </then>
+    </option>
+</question> 
+
+<question>
+    <description>Is there a continous sound?</description> 
+    <option>
+        <description>Only when I brake.</description>
+        <then>
+        <fact name="sound">Braking</fact>
+        </then>
+    </option>
+    <option>
+        <description>Always when I am driving.</description>
+        <then>
+        <fact name="sound">Always</fact>
+        </then>
+    </option>
+    <option>
+        <description>No sound.</description>
+        <then>
+        <fact name="sound">No</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>What does the noise sound like?</description> 
+    <option>
+        <description>It sounds like something is hit with an iron hammer.</description>
+        <then>
+        <fact name="sound_type">Iron hammer</fact>
+        </then>
+    </option>
+    <option>
+        <description>It sounds like a constant rumbling.</description>
+        <then>
+        <fact name="sound_type">Rumbling</fact>
+        </then>
+    </option>
+    <option>
+        <description>It sounds like a rattling or clunking.</description>
+        <then>
+        <fact name="sound_type">Rattling</fact>
+        </then>
+    </option>
+</question>
 
 </knowledge>

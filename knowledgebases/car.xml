@@ -477,14 +477,11 @@
    <!-- Rules for car not starting without sound -->
 
    <rule>
-      <description>Car doesn't start and makes no sound</description>
+      <description>Car doesn't start and makes no sound, battery is dead</description>
       <if>
          <and>
             <fact name="problem">Car not starting</fact>
-            <or>
-               <fact name="start_sound">No</fact>
-               <fact name="start_sound">Barely</fact>
-            </or>
+            <fact name="start_sound">No</fact>
          </and>
       </if>
       <then>
@@ -905,7 +902,7 @@
    </question>
 
    <question>
-      <description>Have you changed the battery in the last 7 years?</description>
+      <description>Have you changed the battery in the last 3 years?</description>
       <option>
          <description>I changed it recently.</description>
          <then>
@@ -913,13 +910,13 @@
          </then>
       </option>
       <option>
-         <description>I changed it 5 to 7 years ago.</description>
+         <description>I changed it 2 to 3 years ago.</description>
          <then>
             <fact name="old_battery">Possibly</fact>
          </then>
       </option>
       <option>
-         <description>I have not changed it for more than 7 years.</description>
+         <description>I have not changed it for more than 3 years.</description>
          <then>
             <fact name="old_battery">Yes</fact>
          </then>
@@ -927,7 +924,7 @@
    </question>
 
    <question>
-      <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off? -> broken electromotor?</description>
+      <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off?</description>
       <option>
          <description>No.</description>
          <then>
@@ -977,7 +974,23 @@
    </question>
 
    <question>
-      <description>[Asked if Does not start -- not sure if correctly placed (ask Expert)] Is your car key functioning normally?</description>
+      <description>Does your car start with the press of a button?</description>
+      <option>
+         <description>I have a classic key, that I insert in the ignition.</description>
+         <then>
+            <fact name="key_type">Classic</fact>
+         </then>
+      </option>
+      <option>
+         <description>I start the car by pressing the Start button.</description>
+         <then>
+            <fact name="key_type">Smart</fact>
+         </then>
+      </option>
+   </question> 
+
+   <question>
+      <description>Is your car key functioning normally?</description>
       <option>
          <description>The car does not unlock when using the key.</description>
          <then>
@@ -985,7 +998,7 @@
          </then>
       </option>
       <option>
-         <description>The car key works sometimes.</description>
+         <description>The car key unlocks the doors only at very close proximity.</description>
          <then>
             <fact name="car_key">Almost dead</fact>
          </then>

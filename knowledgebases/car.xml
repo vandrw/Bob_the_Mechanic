@@ -381,6 +381,19 @@
    </rule>
 
    <rule>
+      <description>Check if battery is low</description>
+      <if>
+         <or>
+            <fact name="lights">Normal</fact>
+            <fact name="green_dot">Normal</fact>
+         </or>
+      </if>
+      <then>
+         <fact name="low_battery">No</fact>
+      </then>
+   </rule>
+
+   <rule>
       <description>Car not starting with sound alternator</description>
       <if>
          <and>
@@ -427,8 +440,7 @@
       <if>
          <and>
             <fact name="start_with_sound">Yes</fact>
-            <fact name="lights">Normal</fact>
-            <fact name="green_dot">Normal</fact>
+            <fact name="low_battery">No</fact>
          </and>
       </if>
       <then>
@@ -492,15 +504,16 @@
    </rule>
 
    <rule>
-      <description>Car doesn't start, makes a sound, lights work</description>
+      <description>Car doesn't start, makes a sound, battery ok</description>
       <if>
          <fact name="start_without_sound">Yes</fact>
-         <fact name="lights">Yes</fact>
+         <fact name="low_battery">No</fact>
       </if>
       <then>
-         <fact name="identified_problem">Dead battery</fact>
+         <fact name="identified_problem">Ignition switch</fact>
       </then>
    </rule>
+
    <!--  Questions -->
 
    <question>

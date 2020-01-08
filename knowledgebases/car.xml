@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <knowledge>
-	<title>Which program should I enter?</title>
-	<description>This is an example to show you some of the features of the inference engine.</description>
+	<title>What is wrong with my car?</title>
+	<description>Troubleshoot your car with Bob before taking it to a mechanic!</description>
 
 	<!-- 
 	The goal of our program is to give one advice: what is wrong with your car.
@@ -39,16 +39,6 @@
         <answer value="$undefined">I don't know what you should do, sorry…</answer>
 		<answer>Something else, namely $program.</answer>
 	</goal>
-
-	<!--
-	These rule cases are pretty self explaining. The description is more for the programmer than for the user of the QA system: it is only displayed in the debug and analyse views. However, it is really useful to determine which rule is misbehaving and what it should do instead.
-
-	You can have multiple <fact>-clauses in your <then>-clause, but it can only be <fact>-clauses. You can not add rules or questions dynamically in this way.
-
-	If you have multiple tests in your <if>-clause, you should immediately start with an <and> or <or>-clause. And of course you can combine them. The <fact>-clauses test whether a fact with that name has the value.
-
-	In the <fact> clauses you can use variables for both the name argument and the value. It will then use the value of that fact you are referring to as if it has been there instead. If that fact you use as a variable is not yet derived, the solver will do that for you.
-	-->
 
 <!--  Rules -->
 

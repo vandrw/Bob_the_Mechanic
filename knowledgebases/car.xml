@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <knowledge>
-   <title>Which program should I enter?</title>
-   <description>This is an example to show you some of the features of the inference engine.</description>
+	<title>What is wrong with my car?</title>
+	<description>Troubleshoot your car with Bob before taking it to a mechanic!</description>
 
    <!-- 
 	The goal of our program is to give one advice: what is wrong with your car.

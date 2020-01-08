@@ -507,7 +507,7 @@
          <fact name="low_battery">No</fact>
       </if>
       <then>
-         <fact name="identified_problem">Ignition switch</fact>
+         <fact name="identified_problem"></fact>
       </then>
    </rule>
 
@@ -557,21 +557,6 @@
       </option>
    </question>
 
-   <question>
-      <description>Has the battery been replaced recently?</description>
-      <option>
-         <description>Yes</description>
-         <then>
-            <fact name="battery">New</fact>
-         </then>
-      </option>
-      <option>
-         <description>No</description>
-         <then>
-            <fact name="battery">Old</fact>
-         </then>
-      </option>
-   </question>
 
    <question>
       <description>Check your dashboad and headlights!</description>
@@ -906,25 +891,25 @@
       <option>
          <description>I changed it recently.</description>
          <then>
-            <fact name="old_battery">No</fact>
+            <fact name="battery">New</fact>
          </then>
       </option>
       <option>
          <description>I changed it 2 to 3 years ago.</description>
          <then>
-            <fact name="old_battery">Possibly</fact>
+            <fact name="battery">Possibly</fact>
          </then>
       </option>
       <option>
          <description>I have not changed it for more than 3 years.</description>
          <then>
-            <fact name="old_battery">Yes</fact>
+            <fact name="battery">Old</fact>
          </then>
       </option>
    </question>
 
    <question>
-      <description>[Asked if answer to old_battery is possibly] Did you forget your lights on when the car was off?</description>
+      <description> Did you forget your lights on when the car was off?</description>
       <option>
          <description>No.</description>
          <then>

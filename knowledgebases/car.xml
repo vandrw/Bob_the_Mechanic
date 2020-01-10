@@ -33,306 +33,373 @@
    
    <!--  Rules -->
 
-      <!--  Rules for car not starting -->
-
-         <rule>
-            <description>Car doesn't start and makes a sound</description>
-            <if>
-               <and>
-                  <fact name="problem">Car not starting</fact>
-                  <fact name="start_sound">Yes</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="start_with_sound">Yes</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Car not starting with sound, alternator</description>
-            <if>
-               <and>
-                  <fact name="start_with_sound">Yes</fact>
-                  <fact name="low_battery">Yes</fact>
-                  <fact name="battery">New</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Alternator</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Car not starting with sound low battery</description>
-            <if>
-               <and>
-                  <fact name="start_with_sound">Yes</fact>
-                  <fact name="low_battery">Yes</fact>
-                  <fact name="lights_on">No</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Low battery</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Car not starting with sound low battery, bad wires</description>
-            <if>
-               <and>
-                  <fact name="start_with_sound">Yes</fact>
-                  <fact name="low_battery">Yes</fact>
-                  <fact name="lights_on">Yes</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Wiring</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Car not starting with sound electromotor</description>
-            <if>
-               <and>
-                  <fact name="start_with_sound">Yes</fact>
-                  <fact name="low_battery">No</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Electromotor</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Car not starting with sound electrolytes</description>
-            <if>
-               <and>
-                  <fact name="start_with_sound">Yes</fact>
-                  <fact name="green_dot">Low electrolytes</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Electrolytes</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Car not starting with sound alternator</description> <!-- where did you get this? -->
-            <if>
-               <and>
-                  <fact name="start_with_sound">Makes weird noises</fact>
-                  <fact name="sound">Rattling</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Alternator</fact>
-            </then>
-         </rule>
-
-      <!--  Checking if the battery is good.-->
-
-         <rule>
-            <description>Battery is dead.</description>
-            <if>
-               <and>
-                  <fact name="old_battery">Old</fact>
-                  <or>
-                     <fact name="lights">Dim</fact>
-                     <fact name="lights">Flicker</fact>
-                     <fact name="green_dot">Low battery</fact>
-                  </or>
-               </and>
-            </if>
-            <then>
-               <fact name="battery">Dead</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Battery has a low level of electrolytes.</description>
-            <if>
-               <or>
-                  <fact name="lights">Dim</fact>
-                  <fact name="lights">Flicker</fact>
-                  <fact name="green_dot">Low battery</fact>
-               </or>
-            </if>
-            <then>
-               <fact name="battery">Low Electrolytes</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Battery is discharged.</description>
-            <if>
-               <or>
-                  <fact name="lights">Dim</fact>
-                  <fact name="lights">Flicker</fact>
-                  <fact name="green_dot">Low battery</fact>
-               </or>
-            </if>
-            <then>
-               <fact name="battery">Discharged.</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Battery functions normally.</description>
-            <if>
-               <and>
-                  <fact name="old_battery">New</fact>>
-                  <fact name="green_dot">Normal</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="battery">Normal</fact>
-            </then>
-         </rule>
-
-      <!--  Rules for car not starting without sound -->
-
-         <rule>
-            <description>Car doesn't start and makes no sound, battery is dead</description>
-            <if>
-               <and>
-                  <fact name="problem">Car not starting</fact>
-                  <fact name="start_sound">No</fact>
-                  <fact name="battery">Old</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Dead battery</fact>
-            </then>
-         </rule>
-
-         <rule>
-            <description>Car doesn't start, makes no sound, battery ok, classic car key</description>
-            <if>
-               <and>
-               <fact name="problem">Car not starting</fact>
-               <fact name="start_without_sound">No</fact>
-               <fact name="battery">New</fact>
-               <fact name="key_type">Classic</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Key not recognised</fact>
-            </then>
-         </rule>
+      <!--  Rules for car not starting. -->
+         <!--  Checking if the battery is good.-->
 
             <rule>
-            <description>Car doesn't start, makes a sound, battery ok, smart key dead</description>
-            <if>
-               <and>
-               <fact name="problem">Car not starting</fact>
-               <fact name="start_without_sound">No</fact>
-               <fact name="battery">New</fact>
-               <fact name="key_type">Smart</fact>
-               <or>
-                  <fact name="car_key">Dead</fact>
-                  <fact name="car_key">Almost dead</fact>
-               </or>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Replace key battery</fact>
-            </then>
-         </rule>
+               <description>Battery is dead.</description>
+               <if>
+                  <and>
+                     <fact name="old_battery">Old</fact>
+                     <or>
+                        <fact name="dashboard">No</fact>
+                        <and>
+                           <or>
+                              <fact name="depleted_battery">Possibly</fact>
+                              <fact name="depleted_battery">No</fact>
+                           </or>
+                           <fact name="green_dot">Low battery</fact>
+                        </and>
+                     </or>
+                  </and>
+               </if>
+               <then>
+                  <fact name="battery">Dead</fact>
+               </then>
+            </rule>
 
-         <rule>
-            <description>Car doesn't start, makes a sound, lights don't work</description>
-            <if>
-               <and>
-               <fact name="start_without_sound">Yes</fact>
-               <fact name="lights">No</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Dead battery</fact>
-            </then>
-         </rule>
+            <rule>
+               <description>Battery has a low level of electrolytes.</description>
+               <if>
+                  <and>
+                     <fact name="old_battery">Possibly</fact>
+                     <or>
+                        <fact name="dashboard">Dim</fact>
+                        <and>
+                           <or>
+                              <fact name="depleted_battery">Possibly</fact>
+                              <fact name="depleted_battery">No</fact>
+                           </or>
+                           <fact name="green_dot">Low electrolytes</fact>
+                        </and>
+                     </or>
+                  </and>
+               </if>
+               <then>
+                  <fact name="battery">Low Electrolytes</fact>
+               </then>
+            </rule>
 
-
-      <!--  Rules for engine stalling problem-->
-         <rule>
-            <description>If engine stalls when driving backwards, wheels are blocked</description>
-            <if>
-               <and>
-                  <fact name="problem">Engine stalling</fact>
-                  <fact name="engine_stalling_backwards">Yes</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">The wheels are blocked</fact>
-            </then>
-         </rule>
-
-      <!--  Rules for noise and steering wheel vibrating -->
-         <rule>
-            <description>If there is always a sound, vibrations, no straight direction</description>
-            <if>
-               <and>
+            <rule>
+               <description>Battery is discharged.</description>
+               <if>
                   <or>
                      <and>
-                        <fact name="problem">Makes weird noises</fact>
-                        <fact name="steering_wheel">Vibrates</fact>
+                        <or>
+                           <fact name="old_battery">New</fact>
+                           <fact name="old_battery">Possibly</fact>
+                        </or>
+                        <fact name="depleted_battery">Yes</fact>
+                        <or>
+                           <fact name="dashboard">Dim</fact>
+                           <fact name="dashboard">No</fact>
+                        </or>
                      </and>
-                     <fact name="problem">Steering wheel vibrating</fact>
+                     <fact name="green_dot">Low battery</fact>
                   </or>
-                  <fact name="sound">Always</fact>
-                  <fact name="car_direction">No</fact>
-                  <fact name="flat_tyre">No</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Loose wheel</fact>
-            </then>
-         </rule>
+               </if>
+               <then>
+                  <fact name="battery">Discharged</fact>
+               </then>
+            </rule>
 
-         <!-- <rule>
-            <description>If the tyre is flat</description>  
-            <if>
-                  <fact name="flat_tyre">Yes</fact>
-            </if>
-            <then>
-               <fact name="identified_problem">Flat tyre</fact>
-            </then>
-         </rule> -->
+            <rule>
+               <description>Battery functions normally.</description>
+               <if>
+                  <or>
+                     <and>
+                        <fact name="old_battery">New</fact>>
+                        <fact name="dashboard">Normal</fact>
+                        <fact name="battery_dashboard">No</fact>
+                     </and>
+                     <fact name="green_dot">Normal</fact>
+                  </or>
+               </if>
+               <then>
+                  <fact name="battery">Normal</fact>
+               </then>
+            </rule>
 
-      <!--  Rules for noises -->
+         <!-- Rules for sound. -->
+            <rule>
+               <description>Car doesn't start and makes a sound</description>
+               <if>
+                  <and>
+                     <fact name="problem">Car not starting</fact>
+                     <fact name="start_sound">Yes</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="start_with_sound">Yes</fact>
+               </then>
+            </rule>
 
-         <rule>
-            <description>If there is a weird sound that is always heard</description>
+            <rule>
+               <description>Car not starting with sound, alternator</description>
+               <if>
+                  <and>
+                     <fact name="start_with_sound">Yes</fact>
+                     <fact name="battery">Discharged</fact>
+                     <fact name="battery_dashboard">Yes</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Alternator</fact>
+               </then>
+            </rule>
+
+            <rule>
+               <description>Car not starting with sound, low battery</description>
+               <if>
+                  <and>
+                     <fact name="start_with_sound">Yes</fact>
+                     <fact name="battery">Discharged</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Low battery</fact>
+               </then>
+            </rule>
+
+            <rule>
+               <description>Car not starting with sound, electromotor</description>
+               <if>
+                  <and>
+                     <fact name="start_with_sound">Yes</fact>
+                     <fact name="battery">Normal</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Electromotor</fact>
+               </then>
+            </rule>
+
+            <rule>
+               <description>Car not starting with sound electrolytes</description>
+               <if>
+                  <and>
+                     <fact name="start_with_sound">Yes</fact>
+                     <fact name="green_dot">Low electrolytes</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Electrolytes</fact>
+               </then>
+            </rule>
+
+         <!-- Rules for no sound -->
+            <rule>
+               <description>Car doesn't start and doesn't make a sound</description>
+               <if>
+                  <and>
+                     <fact name="problem">Car not starting</fact>
+                     <fact name="start_sound">No</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="start_with_sound">No</fact>
+               </then>
+            </rule>
+
+            <rule>
+               <description>Car doesn't start and makes no sound, battery is dead</description>
+               <if>
+                  <and>
+                     <fact name="start_with_sound">No</fact>
+                     <fact name="battery">Dead</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Dead battery</fact>
+               </then>
+            </rule>
+
+            <rule>
+               <description>Car doesn't start, makes no sound, battery ok, classic car key</description>
+               <if>
+                  <and>
+                  <fact name="start_with_sound">No</fact>
+                  <fact name="battery">New</fact>
+                  <fact name="key_type">Classic</fact>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Key not recognised</fact>
+               </then>
+            </rule>
+
+               <rule>
+               <description>Car doesn't start, makes a sound, battery ok, smart key dead</description>
+               <if>
+                  <and>
+                  <fact name="start_with_sound">No</fact>
+                  <fact name="battery">New</fact>
+                  <fact name="key_type">Smart</fact>
+                  <or>
+                     <fact name="car_key">Dead</fact>
+                     <fact name="car_key">Almost dead</fact>
+                  </or>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Replace key battery</fact>
+               </then>
+            </rule>
+
+      <!-- Rules for car not moving. -->
+          <rule>
+            <description>Car not moving, manual, broken clutch cable</description>
             <if>
                <and>
-                  <fact name="problem">Makes weird sounds</fact>
-                  <fact name="sound">Always</fact>
+                  <fact name="problem">Car not moving</fact>
+                  <fact name="type_gearbox">Manual</fact>
+                  <fact name="clutch">Loose</fact>
                </and>
             </if>
             <then>
-               <fact name="constant_sound">Yes</fact>
+               <fact name="identified_problem">Clutch cable</fact>
             </then>
          </rule>
 
          <rule>
-            <description>If there is always a sound, but no steering wheel vibrations</description>
+            <description>Car not moving, manual, old gearbox oil</description>
             <if>
                <and>
-                  <fact name="constant_sound">Yes</fact>
-                  <fact name="sound_source">Wheel</fact>
-                  <fact name="steering_wheel">Still</fact>
+                  <fact name="problem">Car not moving</fact>
+                  <fact name="type_gearbox">Manual</fact>
+                  <fact name="clutch">Normal</fact>
+                  <fact name="gear_oil">Old</fact>
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Deteriorated bearings</fact>
+               <fact name="identified_problem">Old gearbox oil</fact>
             </then>
          </rule>
 
          <rule>
-            <description>Weird noises when braking that sound like an iron hammer</description>
+            <description>Car not moving, manual, gearbox oil leak</description>
+            <if>
+               <and>
+                  <fact name="problem">Car not moving</fact>
+                  <fact name="type_gearbox">Manual</fact>
+                  <fact name="clutch">Normal</fact>
+                  <fact name="gear_oil">New</fact>
+                  <fact name="gear_leak">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Leaking gearbox oil</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Car not moving, manual, clutch disk or planetary gear</description>
+            <if>
+               <and>
+                  <fact name="problem">Car not moving</fact>
+                  <fact name="type_gearbox">Manual</fact>
+                  <fact name="clutch">Normal</fact>
+                  <fact name="gear_oil">New</fact>
+                  <fact name="gear_leak">No</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Clutch disc or planetary gear</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Car not moving, automatic, old gearbox oil</description>
+            <if>
+               <and>
+                  <fact name="problem">Car not moving</fact>
+                  <fact name="type_gearbox">Automatic</fact>
+                  <fact name="gear_oil">Old</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Old gearbox oil</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Car not moving, automatic, gearbox oil leak</description>
+            <if>
+               <and>
+                  <fact name="problem">Car not moving</fact>
+                  <fact name="type_gearbox">Automatic</fact>
+                  <fact name="gear_oil">New</fact>
+                  <fact name="gear_leak">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Leaking gearbox oil</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Car not moving, automatic, planetary gear</description>
+            <if>
+               <and>
+                  <fact name="problem">Car not moving</fact>
+                  <fact name="type_gearbox">Automatic</fact>
+                  <fact name="gear_oil">New</fact>
+                  <fact name="gear_leak">No</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Planetary gear</fact>
+            </then>
+         </rule>
+
+      <!-- Rules for weird noises. -->
+
+         <rule>
+            <description>Noise from steering wheel, flat tyre</description>
             <if>
                <and>
                   <fact name="problem">Makes weird noises</fact>
+                  <fact name="noise_source">Steering wheel</fact>
+                  <fact name="sound">Always</fact>
+                  <fact name="car_direction">No</fact>
+                  <or>
+                     <fact name="flat_tyre">Yes</fact>
+                     <fact name="flat_tyre">Possibly</fact>
+                  </or>
+               </and>
+            </if>
+
+            <then>
+               <fact name="identified_problem">Flat tyre</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Noise from steering wheel, loose bolt</description>
+            <if>
+               <and>
+                  <fact name="problem">Makes weird noises</fact>
+                  <fact name="noise_source">Steering wheel</fact>
+                  <fact name="sound">Always</fact>
+                  <fact name="car_direction">Yes</fact>
+                  <or>
+                     <fact name="flat_tyre">No</fact>
+                     <fact name="flat_tyre">Possibly</fact>
+                  </or>
+                  <fact name="loose_bolt">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Loose bolt</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Noise from one of the wheels, brake plates</description>
+            <if>
+               <and>
+                  <fact name="problem">Makes weird noises</fact>
+                  <fact name="noise_source">Tyre</fact>
                   <fact name="sound">Braking</fact>
                   <fact name="sound_type">Iron hammer</fact>
                </and>
@@ -343,54 +410,183 @@
          </rule>
 
          <rule>
-            <description>Weird noises that sound like an iron hammer, and wheels are loose</description>
+            <description>Noise from tyre, loose bolt</description>
             <if>
                <and>
-                  <fact name="constant_sound">Yes</fact>
-                  <fact name="sound_type">Iron hammer</fact>
-                  <fact name="wheels">Loose</fact>
+                  <fact name="problem">Makes weird noises</fact>
+                  <fact name="noise_source">Tyre</fact>
+                  <fact name="sound">Always</fact>
+                  <fact name="car_direction">Yes</fact>
+                  <or>
+                     <fact name="flat_tyre">No</fact>
+                     <fact name="flat_tyre">Possibly</fact>
+                  </or>
+                  <fact name="loose_bolt">Yes</fact>
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Shock absorber</fact>
+               <fact name="identified_problem">Loose bolt</fact>
             </then>
          </rule>
 
          <rule>
-            <description>Weird rumbling noises</description>
+            <description>Noise from tyre, broken bearing</description>
             <if>
                <and>
-                  <fact name="constant_sound">Yes</fact>
-                  <fact name="sound_type">Rumbling</fact>
+                  <fact name="problem">Makes weird noises</fact>
+                  <fact name="noise_source">Tyre</fact>
+                  <fact name="sound">Always</fact>
+                  <fact name="car_direction">Yes</fact>
+                  <or>
+                     <fact name="flat_tyre">No</fact>
+                     <fact name="flat_tyre">Possibly</fact>
+                  </or>
+                  <fact name="loose_bolt">No</fact>
+                  <fact name="broken_bearing">No</fact>
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Wheel bearings</fact>
+               <fact name="identified_problem">Broken bearing</fact>
             </then>
          </rule>
 
-      <!--  Rule for constant sound and worn out wheels (matches two problems) -->
+         <rule>
+            <description>Noise from elsewhere</description>
+            <if>
+               <and>
+                  <fact name="problem">Makes weird noises</fact>
+                  <fact name="noise_source">Elsewhere</fact>
+                  <or>
+                     <fact name="sound">Always</fact>
+                     <fact name="sound">Braking</fact>
+                  </or>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Personal items or a piece is loose</fact>
+            </then>
+         </rule>
+      <!-- Rules for wheels wearing down. -->
+         <rule>
+            <description>Wheels wear down, old</description>
+            <if>
+               <and>
+                  <fact name="problem">Wheels wear down</fact>
+                  <fact name="wheels">Old</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Wheels are too old</fact>
+            </then>
+         </rule>
 
          <rule>
-            <description>If there is always a sound and the wheels are deteriorated</description>
+            <description>Wheels are still usable</description>
             <if>
                <or>
-                  <and>
-                     <fact name="problem">Wheels wear down</fact>
-                     <fact name="sound">Always</fact>
-                  </and>
-                  <and>
-                     <fact name="constant_sound">Yes</fact>
-                     <fact name="wheels">Worn down</fact>
-                  </and>
+                  <fact name="wheels">New</fact>
+                  <fact name="wheels">Field tested</fact>
                </or>
             </if>
             <then>
-               <fact name="identified_problem">Toe needs adjusting</fact>
+               <fact name="usable_wheels">Yes</fact>
             </then>
          </rule>
 
-      <!--  Rules for high consumption-->
+         <rule>
+            <description>Wheels wear down, gravel</description>
+            <if>
+               <and>
+                  <fact name="problem">Wheels wear down</fact>
+                  <fact name="usable_wheels">Yes</fact>
+                  <fact name="gravel">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Gravel</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Wheels wear down, wrong pressure</description>
+            <if>
+               <and>
+                  <fact name="problem">Wheels wear down</fact>
+                  <fact name="usable_wheels">Yes</fact>
+                  <fact name="gravel">No</fact>
+                  <fact name="inflate">Bad</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Wrong tyre pressure</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Wheels wear down, driving in city</description>
+            <if>
+               <and>
+                  <fact name="problem">Wheels wear down</fact>
+                  <fact name="usable_wheels">Yes</fact>
+                  <fact name="gravel">No</fact>
+                  <fact name="inflate">Good</fact>
+                  <fact name="city">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Driving in the city</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Driving areas should not affect wheel longetivity</description>
+            <if>
+               <or>
+                  <fact name="city">Equal</fact>
+                  <fact name="city">No</fact>
+               </or>
+            </if>
+            <then>
+               <fact name="no_city">Yes</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Wheels wear down, braking often</description>
+            <if>
+               <and>
+                  <fact name="problem">Wheels wear down</fact>
+                  <fact name="usable_wheels">Yes</fact>
+                  <fact name="gravel">No</fact>
+                  <fact name="inflate">Good</fact>
+                  <fact name="no_city">Yes</fact>
+                  <fact name="break_often">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Braking often</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Wheels wear down, hit a pothole</description>
+            <if>
+               <and>
+                  <fact name="problem">Wheels wear down</fact>
+                  <fact name="usable_wheels">Yes</fact>
+                  <fact name="gravel">No</fact>
+                  <fact name="inflate">Good</fact>
+                  <fact name="no_city">Yes</fact>
+                  <fact name="break_often">No</fact>
+                  <fact name="pothole">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Toe-in angle</fact>
+            </then>
+         </rule>
+      
+      <!-- Rules for poor fuel economy. [WORKING]-->
          <rule>
             <description>High fuel consumption from air filters</description>
             <if>
@@ -432,28 +628,12 @@
          </rule>
 
          <rule>
-            <description>Mechanical parts are fine</description>
-            <if>
-               <and>
-                  <fact name="filters">New</fact>
-                  <fact name="acceleration">Normal</fact>
-                  <fact name="engine">Normal</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="mechanical">Normal</fact>
-            </then>
-         </rule>
-
-         <rule>
             <description>High fuel consumption from spark plug malfunction</description>
             <if>
                <and>
+                  <fact name="problem">Fuel economy</fact>
                   <fact name="filters">New</fact>
-                  <or>
-                     <fact name="acceleration">Slower</fact>
-                     <fact name="engine">Misfires</fact>
-                  </or>
+                  <fact name="engine_misfire">Yes</fact>
                </and>
             </if>
             <then>
@@ -461,30 +641,15 @@
             </then>
          </rule>
 
-
-         <rule>
-            <description>High fuel consumption from injection pump</description>
-            <if>
-               <and>
-                  <fact name="filters">New</fact>
-                  <or>
-                     <fact name="engine">Weak</fact>
-                     <fact name="engine">Not smooth</fact>
-                  </or>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Injection pump</fact>
-            </then>
-         </rule>
-
-
          <rule>
             <description>High fuel consumption from driving style manual</description>
             <if>
                <and>
-                  <fact name="mechanical">Normal</fact>
+                  <fact name="problem">Fuel economy</fact>
+                  <fact name="filters">New</fact>
+                  <fact name="engine_misfire">No</fact>
                   <fact name="type_gearbox">Manual</fact>
+                  <fact name="proper_gears">No</fact>
                </and>
             </if>
             <then>
@@ -496,8 +661,11 @@
             <description>High fuel consumption from driving style automatic</description>
             <if>
                <and>
-                  <fact name="mechanical">Normal</fact>
+                  <fact name="problem">Fuel economy</fact>
+                  <fact name="filters">New</fact>
+                  <fact name="engine_misfire">No</fact>
                   <fact name="type_gearbox">Automatic</fact>
+                  <fact name="need_for_speed">Yes</fact>
                </and>
             </if>
             <then>
@@ -505,51 +673,50 @@
             </then>
          </rule>
 
-
-
-      <!--  Rules for overheating-->
-
          <rule>
-            <description>Overheating</description>
+            <description>High fuel consumption from injection pump</description>
             <if>
                <and>
-                  <fact name="problem">Coolant temperature</fact>
-                  <fact name="coolant_temperature">Always</fact>
+                  <fact name="problem">Fuel economy</fact>
+                  <fact name="filters">New</fact>
+                  <fact name="engine_misfire">No</fact>
+                  <or>
+                     <and>
+                        <fact name="type_gearbox">Automatic</fact>
+                        <fact name="need_for_speed">No</fact>
+                     </and>
+                     <and>
+                        <fact name="type_gearbox">Manual</fact>
+                        <fact name="proper_gears">Yes</fact>
+                     </and>
+                  </or>
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Antifreeze leaks</fact>
+               <fact name="identified_problem">Might be the injection pump</fact>
             </then>
          </rule>
 
-         <!--  Rules for car not moving (but starting) -->
+      <!-- Rules for coolant temperature. -->
 
+      <!-- Rules for engine stalling. -->
          <rule>
-            <description>Car starts but doesn't move (manual)</description>
+            <description>If engine stalls when driving backwards, wheels are blocked</description>
             <if>
                <and>
-                  <fact name="problem">Car not moving</fact>
-                  <fact name="type_gearbox">Manual</fact>
-                  <fact name="clutch">Loose</fact>
+                  <fact name="problem">Engine stalling</fact>
+                  <fact name="engine_stalling_backwards">Yes</fact>
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Clutch</fact>
+               <fact name="identified_problem">The wheels are blocked</fact>
             </then>
          </rule>
+      
+      <!-- Rules for AC issues. -->
 
-         <rule>
-            <description>Car starts but doesn't move (general)</description>
-            <if>
-               <and>
-                  <fact name="problem">Car not moving</fact>
-                  <fact name="oil">Old</fact>
-               </and>
-            </if>
-            <then>
-               <fact name="identified_problem">Change oil</fact>
-            </then>
-         </rule>
+      <!-- Rules for power steering issues. -->
+
 
    <!--  Questions -->
    
@@ -814,17 +981,33 @@
          </question>
 
          <question>
-            <description>Did you change the oil recently?</description>
+            <description>Did you change the gearbox oil recently?</description>
             <option>
-               <description>Yes</description>
+               <description>Yes, I have driven less than 50000 km since the last change.</description>
                <then>
-                  <fact name="oil">New</fact>
+                  <fact name="gear_oil">New</fact>
                </then>
             </option>
             <option>
-               <description>No</description>
+               <description>No, I have driven much more than 50000 km.</description>
                <then>
-                  <fact name="oil">Old</fact>
+                  <fact name="gear_oil">Old</fact>
+               </then>
+            </option>
+         </question>
+
+         <question>
+            <description>Did you find a gearbox oil leak under your car?</description>
+            <option>
+               <description>Yes.</description>
+               <then>
+                  <fact name="gear_leak">Yes</fact>
+               </then>
+            </option>
+            <option>
+               <description>No.</description>
+               <then>
+                  <fact name="gear_leak">No</fact>
                </then>
             </option>
          </question>
@@ -840,15 +1023,15 @@
                </then>
             </option>
             <option>
-               <description>From one of the tires.</description>
+               <description>From one of the tyres.</description>
                <then>
-                  <fact name="noise_source">Tire</fact>
+                  <fact name="noise_source">Tyre</fact>
                </then>
             </option>
             <option>
-               <description>From underneath the car or front.</description>
+               <description>From somewhere else.</description>
                <then>
-                  <fact name="noise_source">Elsewhere.</fact>
+                  <fact name="noise_source">Elsewhere</fact>
                </then>
             </option>
          </question>
@@ -856,7 +1039,7 @@
          <question>
             <description>Is there a continous sound?</description>
             <option>
-               <description>Only when I brake.</description>
+               <description>Only when I brake or randomly.</description>
                <then>
                   <fact name="sound">Braking</fact>
                </then>
@@ -865,12 +1048,6 @@
                <description>Always when I am driving.</description>
                <then>
                   <fact name="sound">Always</fact>
-               </then>
-            </option>
-            <option>
-               <description>No sound.</description>
-               <then>
-                  <fact name="sound">No</fact>
                </then>
             </option>
          </question>
@@ -887,12 +1064,6 @@
                <description>It sounds like a constant rumbling.</description>
                <then>
                   <fact name="sound_type">Rumbling</fact>
-               </then>
-            </option>
-            <option>
-               <description>It sounds like a rattling or clunking.</description>
-               <then>
-                  <fact name="sound_type">Rattling</fact>
                </then>
             </option>
          </question>
@@ -960,7 +1131,7 @@
                </then>
             </option>
             <option>
-               <description>No, every nut and bolt is tightened.</description>
+               <description>No, the tire moves normally, without producing a sound.</description>
                <then>
                   <fact name="broken_bearing">No</fact>
                </then>
@@ -1002,12 +1173,12 @@
             <option>
                <description>No, very rarely.</description>
                <then>
-                  <fact name="gravel">Field tested</fact>
+                  <fact name="gravel">No</fact>
                </then>
             </option>
          </question>
 
-         <question>
+         <question> 
             <description>Do you inflate your tires based on the pressure given by the manufacturer?</description>
             <option>
                <description>Yes.</description>
@@ -1040,7 +1211,7 @@
             <option>
                <description>I drive equally on highways and on city roads.</description>
                <then>
-                  <fact name="city">No</fact>
+                  <fact name="city">Equal</fact>
                </then>
             </option>
             <option>
@@ -1052,7 +1223,23 @@
          </question>
 
          <question>
-            <description>Did you hit a large pothole or something simlar recently?</description>
+            <description>Do you break often or very abuptly?</description>
+            <option>
+               <description>Yes, I leave a long tyre mark behind me.</description>
+               <then>
+                  <fact name="break_often">Yes</fact>
+               </then>
+            </option>
+            <option>
+               <description>I sometimes have to break, but no marks appear behind my car.</description>
+               <then>
+                  <fact name="break_often">No</fact>
+               </then>
+            </option>
+         </question>
+
+         <question>
+            <description>Did you hit a large pothole or something similar recently?</description>
             <option>
                <description>Yes.</description>
                <then>
@@ -1101,7 +1288,7 @@
          </question>
 
          <question>
-            <description>Does it seem like one of the cylinders misfires while driving?</description>
+            <description>Does it seem like one of the cylinders misfires while driving (a small, but noticeable explosion)?</description>
             <option>
                <description>Yes.</description>
                <then>

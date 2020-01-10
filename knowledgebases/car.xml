@@ -25,7 +25,7 @@
          <answer value="Electromotor">The electric motor is broken.</answer>
          <answer value="Wiring">The battery is low and it is likely due to faulty wiring of the headlights or dashboard lights.</answer>
          <answer value="Spark plug">There is an issue with the spark plug, it is likely worn out or the sensor wiring is faulty.</answer>
-         <answer value="Injection pump">There is a problem with the injection pump.</answer>
+         <answer value="Might be the injection pump">Your car seems to be taken care of! I believe that there might be a problem with the injection pump, but I suggest taking it to a mechanic to be sure!</answer>
          <answer value="$undefined">I cannot identify what is wrong with your car. I recommend taking it to a mechanic and checking everything with him!</answer>
       </goal>
 
@@ -586,7 +586,7 @@
             </then>
          </rule>
       
-      <!-- Rules for poor fuel economy. [WORKING]-->
+      <!-- Rules for poor fuel economy. -->
          <rule>
             <description>High fuel consumption from air filters</description>
             <if>
@@ -698,23 +698,171 @@
          </rule>
 
       <!-- Rules for coolant temperature. -->
-
-      <!-- Rules for engine stalling. -->
          <rule>
-            <description>If engine stalls when driving backwards, wheels are blocked</description>
+            <description>Coolant has not been changed recently</description>
             <if>
                <and>
-                  <fact name="problem">Engine stalling</fact>
-                  <fact name="engine_stalling_backwards">Yes</fact>
+                  <fact name="problem">Coolant temperature</fact>
+                  <or>
+                     <fact name="coolant_temperature">Only when speeding</fact>
+                     <fact name="coolant_temperature">Always</fact>
+                  </or>
+                  <fact name="new_coolant">No</fact>
                </and>
             </if>
             <then>
-               <fact name="identified_problem">The wheels are blocked</fact>
+               <fact name="identified_problem">Old coolant</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Coolant is leaking</description>
+            <if>
+               <and>
+                  <fact name="problem">Coolant temperature</fact>
+                  <or>
+                     <fact name="coolant_temperature">Only when speeding</fact>
+                     <fact name="coolant_temperature">Always</fact>
+                  </or>
+                  <fact name="new_coolant">Yes</fact>
+                  <fact name="leaking_coolant">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Leaking coolant</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Not enough oil in the engine.</description>
+            <if>
+               <and>
+                  <fact name="problem">Coolant temperature</fact>
+                  <fact name="coolant_temperature">Always</fact>
+                  <fact name="new_coolant">Yes</fact>
+                  <fact name="leaking_coolant">No</fact>
+                  <fact name="engine_oil">No</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Not enough oil</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Indicates a broken fan.</description>
+            <if>
+               <and>
+                  <fact name="problem">Coolant temperature</fact>
+                  <fact name="coolant_temperature">Always</fact>
+                  <fact name="new_coolant">Yes</fact>
+                  <fact name="leaking_coolant">No</fact>
+                  <fact name="engine_oil">Yes</fact>
+                  <fact name="new_car">No</fact>
+                  <fact name="ac_is_on">No</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Broken cooling fan? (send to mechanic)</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Using the AC creates more stress on engines in older cars.</description>
+            <if>
+               <and>
+                  <fact name="problem">Coolant temperature</fact>
+                  <fact name="coolant_temperature">Only when speeding</fact>
+                  <fact name="new_coolant">Yes</fact>
+                  <fact name="leaking_coolant">No</fact>
+                  <fact name="engine_oil">Yes</fact>
+                  <fact name="new_car">No</fact>
+                  <fact name="ac_is_on">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">AC creates more heat</fact>
+            </then>
+         </rule>
+
+                  <rule>
+            <description>Indicates a faulty thermostat</description>
+            <if>
+               <and>
+                  <fact name="problem">Coolant temperature</fact>
+                  <fact name="coolant_temperature">Only when speeding</fact>
+                  <fact name="new_coolant">Yes</fact>
+                  <fact name="leaking_coolant">No</fact>
+                  <fact name="engine_oil">Yes</fact>
+                  <fact name="new_car">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Thermostat? (send to mechanic)</fact>
+            </then>
+         </rule>
+
+      <!-- Rules for engine stalling. -->
+         <rule>
+            <description>Handbrake is pulled</description>
+            <if>
+               <and>
+                  <fact name="problem">Engine stalling</fact>
+                  <fact name="handbrake">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Handbrake</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>No more gas</description>
+            <if>
+               <and>
+                  <fact name="problem">Engine stalling</fact>
+                  <fact name="handbrake">No</fact>
+                  <fact name="empty_gas">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Gas</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Broken alternator does not produce enough electricity to keep the car running.</description>
+            <if>
+               <and>
+                  <fact name="problem">Engine stalling</fact>
+                  <fact name="handbrake">No</fact>
+                  <fact name="empty_gas">No</fact>
+                  <fact name="battery_dashboard">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Alternator</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Not enough oil present, placing a strain on the engine.</description>
+            <if>
+               <and>
+                  <fact name="problem">Engine stalling</fact>
+                  <fact name="handbrake">No</fact>
+                  <fact name="empty_gas">No</fact>
+                  <fact name="battery_dashboard">No</fact>
+                  <fact name="engine_oil">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Missing oil</fact>
             </then>
          </rule>
       
       <!-- Rules for AC issues. -->
-
+         
       <!-- Rules for power steering issues. -->
 
 
@@ -1384,11 +1532,56 @@
             </option>
          </question>
 
-         <!-- Ask if the coolant was changed recently and if there seems to be less shorly after -->
-         <!-- replacing it. This would indicate a leak. More info in the README file. -->
+         <question>
+            <description>Is your car new (not older than 2008)?</description>
+            <option>
+               <description>Yes.</description>
+               <then>
+                  <fact name="new_car">Yes</fact>
+               </then>
+            </option>
+            <option>
+               <description>No.</description>
+               <then>
+                  <fact name="new_car">No</fact>
+               </then>
+            </option>
+         </question>
+
+         <question>
+            <description>Do you you use the air conditioner when this happens?</description>
+            <option>
+               <description>Yes, at maximum power.</description>
+               <then>
+                  <fact name="ac_is_on">Yes</fact>
+               </then>
+            </option>
+            <option>
+               <description>No.</description>
+               <then>
+                  <fact name="ac_is_on">No</fact>
+               </then>
+            </option>
+         </question>
 
 
       <!-- Questions about the engine stalling. -->
+         <question>
+            <description>Do you have enough oil in the engine?</description>
+            <option>
+               <description>Yes, it is at the right level on the dipstick.</description>
+               <then>
+                  <fact name="engine_oil">Yes</fact>
+               </then>
+            </option>
+            <option>
+               <description>No, it is below what is indicated.</description>
+               <then>
+                  <fact name="engine_oil">No</fact>
+               </then>
+            </option>
+         </question>
+
          <question>
             <description>Is the hand-brake pulled?</description>
             <option>

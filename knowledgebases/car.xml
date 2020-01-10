@@ -33,7 +33,7 @@
    
    <!--  Rules -->
 
-      <!--  Rules for car not starting. -->
+      <!-- Rules for car not starting. -->
          <!--  Checking if the battery is good.-->
 
             <rule>
@@ -853,18 +853,116 @@
                   <fact name="handbrake">No</fact>
                   <fact name="empty_gas">No</fact>
                   <fact name="battery_dashboard">No</fact>
-                  <fact name="engine_oil">Yes</fact>
+                  <fact name="engine_oil">No</fact>
                </and>
             </if>
             <then>
                <fact name="identified_problem">Missing oil</fact>
             </then>
          </rule>
+
+         <rule>
+            <description>If everything is all right, the wheels might be stuck</description>
+            <if>
+               <and>
+                  <fact name="problem">Engine stalling</fact>
+                  <fact name="handbrake">No</fact>
+                  <fact name="empty_gas">No</fact>
+                  <fact name="battery_dashboard">No</fact>
+                  <fact name="engine_oil">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Stuck wheels</fact>
+            </then>
+         </rule>
       
       <!-- Rules for AC issues. -->
-         
+         <rule>
+            <description>Old freon</description>
+            <if>
+               <and>
+                  <fact name="problem">AC issues</fact>
+                  <fact name="freon_old">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Old freon</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>The AC Compressor is not working properly.</description>
+            <if>
+               <and>
+                  <fact name="problem">AC issues</fact>
+                  <fact name="freon_old">No</fact>
+                  <fact name="freon_warm">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">AC Compressor</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>The alternator is not producing enough electricity to maintain the AC system.</description>
+            <if>
+               <and>
+                  <fact name="problem">AC issues</fact>
+                  <fact name="freon_old">No</fact>
+                  <fact name="freon_warm">No</fact>
+                  <fact name="battery_dashboard">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Alternator</fact>
+            </then>
+         </rule>
       <!-- Rules for power steering issues. -->
 
+         <rule>
+            <description>Old power steering oil</description>
+            <if>
+               <and>
+                  <fact name="problem">Power steering</fact>
+                  <fact name="power_old">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Old Power Steering Oil</fact>
+            </then>
+         </rule>
+
+         <rule>
+            <description>Leaking power steering oil</description>
+            <if>
+               <and>
+                  <fact name="problem">Power steering</fact>
+                  <fact name="power_old">No</fact>
+                  <fact name="power_leak">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Leaking Power Steering Oil</fact>
+            </then>
+         </rule>
+
+         
+         <rule>
+            <description>A flat tyre will make the wheel harder to turn.</description>
+            <if>
+               <and>
+                  <fact name="problem">Power steering</fact>
+                  <fact name="power_old">No</fact>
+                  <fact name="power_leak">No</fact>
+                  <fact name="flat_tyre">Yes</fact>
+               </and>
+            </if>
+            <then>
+               <fact name="identified_problem">Flat tyre</fact>
+            </then>
+         </rule>
 
    <!--  Questions -->
    
@@ -920,7 +1018,7 @@
                </then>
             </option>
             <option>
-               <description>The steering wheel feels hard to turn.</description>
+               <description>The steering wheel feels hard to turn/stiff.</description>
                <then>
                   <fact name="problem">Power steering</fact>
                </then>

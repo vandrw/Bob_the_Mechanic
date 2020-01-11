@@ -500,7 +500,7 @@
                      <fact name="flat_tyre">Possibly</fact>
                   </or>
                   <fact name="loose_bolt">No</fact>
-                  <fact name="broken_bearing">No</fact>
+                  <fact name="broken_bearing">Yes</fact>
                </and>
             </if>
             <then>

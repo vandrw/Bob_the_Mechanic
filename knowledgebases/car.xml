@@ -5,27 +5,61 @@
 
    <!-- Goal and answers-->
       <goal name="identified_problem">
-         <answer value="The wheels are blocked">Wheels are blocked.</answer>
-         <answer value="Flat tyre">To be completed</answer>
-         <answer value="Air filters">Change the air filters regularly to reduce fuel consumption. You should be changing them when you also change the oil, roughly every 10.000-15.000 km. </answer>
-         <answer value="Fuel filters">Change the fuel filters regularly to reduce fuel consumption. You should be changing them half as often as you change the oil, roughly every 15.000 km. </answer>
-         <answer value="Toe needs adjusting">The angle of wheels (toe) needs adjusting</answer>
-         <answer value="Driving style manual">Use the appropriate gears when driving to reduce consumption. If the problem persists, go to a mechanic.</answer>
-         <answer value="Driving style automatic">Avoid accelerating suddenly to reduce consumption. If the problem persists, go to a mechanic.</answer>
-         <answer value="Antifreeze leaks">The antifreeze liquid is leaking which causes the coolant to overheat.</answer>
-         <answer value="Change oil">You should change the oil.</answer>
-         <answer value="Broken brake plates">The brake plates are deteriorated and should be replaced.</answer>
-         <answer value="Shock absorber">The shock absorber (damper) is deteriorated.</answer>
-         <answer value="Wheel bearings">The wheel baerings are deteriorated, most likely because they were not properly oiled.</answer>
-         <answer value="Alternator">The alternator is not working properly, it is likely not re-charging the battery anymore.</answer>
-         <answer value="Low battery">The battery is too low and needs to be charged.</answer>           
-         <answer value="Dead battery">The battery has fully discharged. It needs to be replaced</answer>
-         <answer value="Key not recognised">The key is not recognised by the car. Try taking it to a mechanic to reprogram it.</answer>
-         <answer value="Replace key battery">The battery of your smart key is very low. Try replacing it or placing the key very close to the Start button.</answer>         
-         <answer value="Electromotor">The electric motor is broken.</answer>
-         <answer value="Wiring">The battery is low and it is likely due to faulty wiring of the headlights or dashboard lights.</answer>
-         <answer value="Spark plug">There is an issue with the spark plug, it is likely worn out or the sensor wiring is faulty.</answer>
-         <answer value="Might be the injection pump">Your car seems to be taken care of! I believe that there might be a problem with the injection pump, but I suggest taking it to a mechanic to be sure!</answer>
+
+         <!-- Answers for car not starting. -->
+            <answer value="Alternator">The alternator is not working properly, it is likely not re-charging the battery anymore. Therefore, your car might not have enough electricity to keep running, maintain the AC system or even start!</answer>
+            <answer value="Low battery">The battery is too low and needs to be charged.</answer>           
+            <answer value="Electromotor">The battery and the alternator seem fine. It might be that the electric motor is broken. I suggest taking it to a mechanic to be sure!</answer>
+            <answer value="Electrolytes">The battery has a low level of electrolytes. Try adding more according to the battery manufacturer or take it to an electrician!</answer>
+            <answer value="Dead battery">The battery has fully discharged and has produced irreparable damage. It needs to be replaced.</answer>
+            <answer value="Key not recognised">The key is not recognised by the car. Try taking it to a mechanic to reprogram it.</answer>
+            <answer value="Replace key battery">The battery of your smart key is very low. Try replacing it or placing the key very close to the Start button.</answer>
+            <answer value="Possible wiring problems">The car seems fine... Perhaps there are wiring problems. I recommend taking it to a mechanic to have a look at it!</answer>
+         <!-- Answers for car not moving. -->
+            <answer value="Clutch cable">The clutch cable is broken. I recommend changing it with a new one.</answer>
+            <answer value="Old gearbox oil">The gearbox oil is too old and too viscous to allow the gearbox to move. Replace it!</answer>
+            <answer value="Leaking gearbox oil">The gearbox oil has leaked too much and might not be enough to allow the car to move. I suggest taking it to a mechanic to discover where the leak is coming from!</answer>
+            <answer value="Clutch disc or planetary gear">Given you have a manual car, there might be a problem with the clutch disk or the planetary gear. You should check both at a mechanic!</answer>
+            <answer value="Planetary gear">Given that you have an automatic car, the only thing left that can be wrong is the planetary gear. This is not easy to look at yourself and, therefore, I recommend taking it to a mechanic!</answer>
+         <!-- Answers for weird noises. -->
+            <answer value="Flat tyre">There is or might be a flat tyre. This can cause the steering wheel to vibrate, make it harder to turn or make the wheels deteriorate faster. Get it replaced yourself or take it to a nearby mechanic!</answer>
+            <answer value="Loose bolt">There is a loose bolt on one of the tyres. This can create a noise from one of them and is dangerous! Tighten them all using the car's tools.</answer>
+            <answer value="Broken brake plates">The brake plates are deteriorated and should be replaced. Driving with such plates is dangerous and should be done as soon as possible!</answer>
+            <answer value="Broken bearing">One or more of the wheel bearings are deteriorated, most likely because they were not properly oiled.</answer>
+            <answer value="Personal items or a piece is loose">A personal item is moving freely or a car component is not tightened properly. Investigate further or, if you're concerned, take it to a mechanic.</answer>
+         <!-- Answers for wheels wearing down. -->
+            <answer value="Wheels are too old">The wheels need to be changed after 8 years of use! It is normal to show signs of wear after such a long time.</answer>
+            <answer value="Gravel">If you drive often on gravel roads, the wheels will wear down very fast! The gravel is very slippery and acts like a sandpaper for your tires, thus making them show signs of wear early.</answer>  
+            <answer value="Wrong tyre pressure">You need to use the tyre pressure indicated by the manufacturer! This ensures that the tyres have a longer life and provides more security overall on the road.</answer>
+            <answer value="Driving in the city">Driving in the city makes you brake often. This makes your tires wear down fast.</answer> 
+            <answer value="Braking often">If you break often and abruptly, your wheels will wear down quickly. I suggest driving safer and avoiding pressing the brake pedal too hard.</answer>
+            <answer value="Toe-in angle">A pothole or a similar obstacle might have thrown your wheels out of alignment. This is very dangerous and should be taken to a mechanic to adjust the toe-in angle!</answer>
+         <!-- Answers for poor fuel economy. -->
+            <answer value="Air filter">Change the air filters regularly to reduce fuel consumption. You should be changing them when you also change the oil, roughly every 10.000-15.000 km. </answer>
+            <answer value="Fuel filter">Change the fuel filters regularly to reduce fuel consumption. You should be changing them half as often as you change the oil, roughly every 15.000 km. </answer>
+            <answer value="Spark plug">There is an issue with a spark plug. It is likely worn out or the sensor wiring is faulty.</answer>
+            <answer value="Driving style manual">Use the appropriate gears when driving to reduce consumption. If the problem persists, go to a mechanic.</answer>
+            <answer value="Driving style automatic">Avoid accelerating suddenly to reduce consumption. If the problem persists, go to a mechanic.</answer>
+            <answer value="Might be the injection pump">Your car seems to be taken care of! I suspect that there might be a problem with the injection pump, but I suggest taking it to a mechanic to be sure!</answer>
+         <!-- Answers for coolant temperature. -->
+            <answer value="Old coolant">The coolant is too old to maintain the temperature of your car. I recommend changing it!</answer>
+            <answer value="Leaking coolant">The coolant is leaking somewhere and is not enough to maintain the car at a low temperature. I suggest taking the car to a mechanic to identify the leak and fix it!</answer> 
+            <answer value="Not enough oil">There is not enough oil in the engine! This can increase the friction between the pieces inside and and, therefore, increase the temperature. Try to add more or change the engine oil!</answer>
+            <answer value="Broken cooling fan?">The car seems to be fine so far! I suspect that the cooling fan in the front is broken! This can prevent the car from lowering its temperature. I suggest taking it to a mechanic to be sure!</answer>  
+            <answer value="AC creates more heat">This issue is more common in older cars, in hot environments. When using the AC system, the radiator and its fan can't keep up, causing the car to overheat. Try opening the windows!</answer>
+            <answer value="Thermostat?">As your car is new, it should handle various environments, including hot ones! I suspect that there might be a faulty thermostat, but you should take it to a mechanic to be sure!</answer>
+         <!-- Answers for engine stalling. -->
+            <answer value="Handbrake">The handbrake is pulled! This blocks the wheels and makes the car stall (especially when the engine is cold).</answer>
+            <answer value="Gas">There is not enough gas in the tank! Make sure to fill it up, otherwise other car parts might become faulty.</answer>
+            <answer value="Missing oil">The engine is not lubrciated enough due to a lack of oil. Make sure to add enough, based on the dipstick.</answer>
+            <answer value="Stuck wheels">I suspect that the wheels are blocked, due to a faulty handbrake cable. I suggest taking it to a mechanic or releasing the brakes yourself.</answer>
+         <!-- Answers for AC issues. -->
+            <answer value="Old freon">The freon is too old to maintain a lower temperature! I suggest taking it to a mechanic to change it.</answer>
+            <answer value="AC Compressor">The AC compressor is broken and cannot circulate the freon properly. I suggest changing it with a new one!</answer>
+         <!-- Answers for power steering issues. -->
+            <answer value="Old Power Steering Oil">The power steering oil is too old and viscous to allow the steering wheel to turn normally. I suggest changing it with a new one!</answer>
+            <answer value="Leaking Power Steering Oil">The power steering oil is leaking and, therefore, not enough to turn the steering wheel properly! I suggest taking it to a mechanic to identify the leak and fix it.</answer>
+
          <answer value="$undefined">I cannot identify what is wrong with your car. I recommend taking it to a mechanic and checking everything with him!</answer>
       </goal>
 
@@ -40,7 +74,10 @@
                <description>Battery is dead.</description>
                <if>
                   <and>
-                     <fact name="old_battery">Old</fact>
+                     <or>
+                        <fact name="old_battery">Old</fact>
+                        <fact name="old_battery">Possibly</fact>
+                     </or>
                      <or>
                         <fact name="dashboard">No</fact>
                         <and>
@@ -89,7 +126,6 @@
                            <fact name="old_battery">New</fact>
                            <fact name="old_battery">Possibly</fact>
                         </or>
-                        <fact name="depleted_battery">Yes</fact>
                         <or>
                            <fact name="dashboard">Dim</fact>
                            <fact name="dashboard">No</fact>
@@ -108,7 +144,10 @@
                <if>
                   <or>
                      <and>
-                        <fact name="old_battery">New</fact>>
+                        <or>
+                           <fact name="old_battery">Possibly</fact>
+                           <fact name="old_battery">New</fact>
+                        </or>
                         <fact name="dashboard">Normal</fact>
                         <fact name="battery_dashboard">No</fact>
                      </and>
@@ -138,8 +177,7 @@
                <description>Car not starting with sound, alternator</description>
                <if>
                   <and>
-                     <fact name="start_with_sound">Yes</fact>
-                     <fact name="battery">Discharged</fact>
+                     <fact name="start_with_sound">Yes</fact> 
                      <fact name="battery_dashboard">Yes</fact>
                   </and>
                </if>
@@ -218,9 +256,9 @@
                <description>Car doesn't start, makes no sound, battery ok, classic car key</description>
                <if>
                   <and>
-                  <fact name="start_with_sound">No</fact>
-                  <fact name="battery">New</fact>
-                  <fact name="key_type">Classic</fact>
+                     <fact name="start_with_sound">No</fact>
+                     <fact name="battery">Normal</fact>
+                     <fact name="key_type">Classic</fact>
                   </and>
                </if>
                <then>
@@ -228,21 +266,41 @@
                </then>
             </rule>
 
-               <rule>
+            <rule>
                <description>Car doesn't start, makes a sound, battery ok, smart key dead</description>
                <if>
                   <and>
-                  <fact name="start_with_sound">No</fact>
-                  <fact name="battery">New</fact>
-                  <fact name="key_type">Smart</fact>
-                  <or>
-                     <fact name="car_key">Dead</fact>
-                     <fact name="car_key">Almost dead</fact>
-                  </or>
+                     <fact name="start_with_sound">No</fact>
+                     <fact name="battery">Normal</fact>
+                     <fact name="key_type">Smart</fact>
+                     <or>
+                        <fact name="car_key">Dead</fact>
+                        <fact name="car_key">Almost dead</fact>
+                     </or>
                   </and>
                </if>
                <then>
                   <fact name="identified_problem">Replace key battery</fact>
+               </then>
+            </rule>
+
+            <rule>
+               <description>Car with smart key seems fine, wiring problems?</description>
+               <if>
+                  <and>
+                     <or>
+                        <fact name="start_with_sound">Yes</fact>
+                        <fact name="start_with_sound">No</fact>
+                     </or>
+                     <fact name="battery">Normal</fact>
+                     <and>
+                        <fact name="key_type">Smart</fact>
+                        <fact name="key_type">Works</fact>
+                     </and>
+                  </and>
+               </if>
+               <then>
+                  <fact name="identified_problem">Possible wiring problems</fact>
                </then>
             </rule>
 
@@ -588,7 +646,7 @@
       
       <!-- Rules for poor fuel economy. -->
          <rule>
-            <description>High fuel consumption from air filters</description>
+            <description>High fuel consumption from air filter</description>
             <if>
                <and>
                   <fact name="problem">Fuel economy</fact>
@@ -596,7 +654,7 @@
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Air filters</fact>
+               <fact name="identified_problem">Air filter</fact>
             </then>
          </rule>
 
@@ -609,7 +667,7 @@
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Fuel filters</fact>
+               <fact name="identified_problem">Fuel filter</fact>
             </then>
          </rule>
 
@@ -763,7 +821,7 @@
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Broken cooling fan? (send to mechanic)</fact>
+               <fact name="identified_problem">Broken cooling fan?</fact>
             </then>
          </rule>
 
@@ -798,7 +856,7 @@
                </and>
             </if>
             <then>
-               <fact name="identified_problem">Thermostat? (send to mechanic)</fact>
+               <fact name="identified_problem">Thermostat?</fact>
             </then>
          </rule>
 
@@ -1317,13 +1375,13 @@
          <question>
             <description>Is there a flat tyre?</description>
             <option>
-               <description>Yes, I have a flat tire.</description>
+               <description>Yes, I have a flat tyre.</description>
                <then>
                   <fact name="flat_tyre">Yes</fact>
                </then>
             </option>
             <option>
-               <description>No, I do not have a flat tire.</description>
+               <description>No, I do not have a flat tyre.</description>
                <then>
                   <fact name="flat_tyre">No</fact>
                </then>

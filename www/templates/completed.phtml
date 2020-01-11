@@ -2,16 +2,16 @@
 
 <?php $this->begin('content') ?>
 <section class="completed">
-	<h2 class="splash-head">Conclusions</h2>
-	<dl class="splash-subhead">
+	<h2 class="splash-head" style="margin-bottom: 1.5em;">Conclusions</h2>
+	<dl class="splash-subhead" style="font-size: 120%;">
 	<?php foreach ($domain->goals as $goal): ?>
 		<?php if ($goal->hasAnswers() && (($answer = $goal->answer($state)) || $state->facts[$goal->name] != STATE_UNDEFINED)): ?>
 			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?></dt>
-			<dd><?php
+			<div><?php
 				echo $answer
 					? $state->substitute_variables($answer->description, ['Template', 'html'])
 					: '<pre>' . $state->facts[$goal->name] . '</pre>';
-				?></dd>
+				?></div>
 			<?php endif ?>
 	<?php endforeach ?>
 	</dl>

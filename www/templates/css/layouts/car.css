@@ -100,10 +100,9 @@ a.pure-button-primary {
     padding: 0.05em;
     text-align: center;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
+    background: rgb(131, 190, 134);
 }
-.home-menu {
-    background: #A2E3C4;
-}
+
 .pure-menu.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */
     border-bottom: none;
@@ -112,23 +111,24 @@ a.pure-button-primary {
 }
 
 .home-menu .pure-menu-heading {
-    color: #7E8D85;
-    font-weight: 400;
-    font-size: 120%;
+    color: rgb(234, 238, 234);
+    font-weight: 200;
+    font-size: 100%;
+    text-transform: none;
 }
 
 .home-menu .pure-menu-selected a {
-    color: rgb(98, 135, 115);
+    color: rgb(233, 255, 233);
 }
 
 .home-menu a {
-    color: #7E8D85;
+    color: rgb(234, 238, 234);
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
     background: none;
     border: none;
-    color: rgb(68, 99, 82);
+    color: rgb(255, 255, 255);
 }
 /* Answer pages */
 
@@ -153,13 +153,7 @@ a.pure-button-primary {
 .splash-container {
     background: #F0F7F4;
     z-index: 1;
-    overflow: hidden;
-    /* The following styles are required for the "scroll-over" effect */
-    width: 100%;
-    height: 88%;
-    top: 0;
-    left: 0;
-    position: fixed !important;
+    overflow: visible;
 }
 
 .splash {
@@ -184,7 +178,7 @@ a.pure-button-primary {
 .splash-head {
     font-size: 20px;
     font-weight: bold;
-    color: #3C493F;
+    color: rgb(36, 97, 52);
     /* border: 3px solid white; */
     padding: 0.1em;
     font-weight: 100;
@@ -194,7 +188,7 @@ a.pure-button-primary {
 
 /* This is the subheading that appears on the blue section */
 .splash-subhead {
-    color: #7E8D85;
+    color: rgb(113, 132, 122);
     letter-spacing: 0.05em;
     opacity: 0.8;
 }

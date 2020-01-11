@@ -60,7 +60,7 @@
             <answer value="Old Power Steering Oil">The power steering oil is too old and viscous to allow the steering wheel to turn normally. I suggest changing it with a new one!</answer>
             <answer value="Leaking Power Steering Oil">The power steering oil is leaking and, therefore, not enough to turn the steering wheel properly! I suggest taking it to a mechanic to identify the leak and fix it.</answer>
 
-         <answer value="$undefined">I cannot identify what is wrong with your car. I recommend taking it to a mechanic and checking everything with him!</answer>
+         <answer value="$undefined">I cannot identify what is wrong with your car. I recommend taking it to a mechanic and checking everything there!</answer>
       </goal>
 
 

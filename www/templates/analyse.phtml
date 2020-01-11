@@ -5,7 +5,8 @@ function red_if_zero($value) {
 ?>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="favicon.png" type="image/png">
     <meta name="description" content="A user interface designed to express the Knowledge of an expert in an intuitive way.">   
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
     
@@ -19,10 +20,10 @@ function red_if_zero($value) {
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     
         <!--[if lte IE 8]>
-            <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
+            <link rel="stylesheet" href="css/layouts/car-old-ie.css">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="templates/css/layouts/marketing.css">
+            <link rel="stylesheet" href="templates/css/layouts/car.css">
 		<!--<![endif]-->
 
 		<title>Analyse <?=$this->html($kb->title)?></title>
@@ -54,6 +55,7 @@ function red_if_zero($value) {
 			
 		<div class="header">
 			<div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+				<i class="fas fa-wrench" style="font-size: 110%; color: rgb(234, 238, 234); margin-left: 1em; margin-right:-0.5em;"></i>
 				<a class="pure-menu-heading" href="">Bob the Mechanic</a>
 
 				<ul class="pure-menu-list">

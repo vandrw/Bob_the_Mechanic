@@ -6,7 +6,6 @@
 	<dl class="splash-subhead" style="font-size: 120%;">
 	<?php foreach ($domain->goals as $goal): ?>
 		<?php if ($goal->hasAnswers() && (($answer = $goal->answer($state)) || $state->facts[$goal->name] != STATE_UNDEFINED)): ?>
-			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?></dt>
 			<div><?php
 				echo $answer
 					? $state->substitute_variables($answer->description, ['Template', 'html'])

@@ -5,7 +5,7 @@
 
    <!-- Goal and answers-->
       <goal name="identified_problem">
-
+         <description>These are potential problems with your car.</description>
          <!-- Answers for car not starting. -->
             <answer value="Alternator">The alternator is not working properly, it is likely not re-charging the battery anymore. Therefore, your car might not have enough electricity to keep running, maintain the AC system or even start!</answer>
             <answer value="Low battery">The battery is too low and needs to be charged.</answer>           

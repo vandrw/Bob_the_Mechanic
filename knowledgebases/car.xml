@@ -587,7 +587,10 @@
                   <fact name="problem">Wheels wear down</fact>
                   <fact name="usable_wheels">Yes</fact>
                   <fact name="gravel">No</fact>
-                  <fact name="inflate">Good</fact>
+                  <or>
+                     <fact name="inflate">Good</fact>
+                     <fact name="inflate">Possibly</fact>
+                  </or>
                   <fact name="city">Yes</fact>
                </and>
             </if>
@@ -616,7 +619,10 @@
                   <fact name="problem">Wheels wear down</fact>
                   <fact name="usable_wheels">Yes</fact>
                   <fact name="gravel">No</fact>
-                  <fact name="inflate">Good</fact>
+                  <or>
+                     <fact name="inflate">Good</fact>
+                     <fact name="inflate">Possibly</fact>
+                  </or>
                   <fact name="no_city">Yes</fact>
                   <fact name="break_often">Yes</fact>
                </and>
@@ -633,7 +639,10 @@
                   <fact name="problem">Wheels wear down</fact>
                   <fact name="usable_wheels">Yes</fact>
                   <fact name="gravel">No</fact>
-                  <fact name="inflate">Good</fact>
+                  <or>
+                     <fact name="inflate">Good</fact>
+                     <fact name="inflate">Possibly</fact>
+                  </or>
                   <fact name="no_city">Yes</fact>
                   <fact name="break_often">No</fact>
                   <fact name="pothole">Yes</fact>

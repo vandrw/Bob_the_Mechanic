@@ -1,4 +1,4 @@
-# Knowledge Technology Practical
+# Bob the Mechanic
 
 ### Based On
 * [Inference Engine](https://kat.ikhoefgeen.nl/)

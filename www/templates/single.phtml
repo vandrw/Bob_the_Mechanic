@@ -1,66 +1,68 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A user interface designed to express the Knowledge of an expert in an intuitive way.">
-    <title>Bob the Mechanic</title> 
-    <link rel="icon" href="favicon.png" type="image/png">   
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
-    
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
-    <![endif]-->
-    <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
-    <!--<![endif]-->
-    
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A user interface designed to express the Knowledge of an expert in an intuitive way.">
+        <title>Bob the Mechanic</title> 
+        <link rel="icon" href="favicon.png" type="image/png">   
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+        
         <!--[if lte IE 8]>
-            <link rel="stylesheet" href="css/layouts/car-old-ie.css">
+            <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="templates/css/layouts/car.css">
+            <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
         <!--<![endif]-->
+        
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        
+            <!--[if lte IE 8]>
+                <link rel="stylesheet" href="css/layouts/car-old-ie.css">
+            <![endif]-->
+            <!--[if gt IE 8]><!-->
+                <link rel="stylesheet" href="templates/css/layouts/car.css">
+            <!--<![endif]-->
 
-      <!-- font awesome-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-        crossorigin="anonymous">
+        <!-- font awesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+            crossorigin="anonymous">
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-<?php if ($errors): ?>
-		<section class="status-update">
-			<p>The following errors occurred:</p>
-			<ul>
-				<?php foreach ($errors as $error): ?>
-				<li title="<?=$this->attr(sprintf('%s:%d', $error->file, $error->line))?>"><?=$this->html($error->message)?></li>
-				<?php endforeach ?>
-			</ul>
-		</section>
-		<?php endif ?>
+        <?php if ($errors): ?>
+                <section class="status-update">
+                    <p>The following errors occurred:</p>
+                    <ul>
+                        <?php foreach ($errors as $error): ?>
+                        <li title="<?=$this->attr(sprintf('%s:%d', $error->file, $error->line))?>"><?=$this->html($error->message)?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </section>
+                <?php endif ?>
 
-<!-- The main Knowledge Base System. -->
+        <!-- The main Knowledge Base System. -->
 
-<div class="splash-container" id="first-page">
-    <div class="splash">
-        <i class="fas fa-car" style="font-size: 100px; color: rgb(131, 190, 134);"></i>
-        <h1 class="splash-head">Bob the Mechanic</h1>
-        <p class="splash-subhead">
-            Hi there! I am Bob and I fix cars. In this questioning session, I will try to identify what is wrong with your car and provide appropriate feedback on how to repair it.
-        </p>
-        <p>
-            <a href="webfrontend.php?kb=car.xml" class="pure-button pure-button-primary" style="background: rgb(131, 190, 134); margin-top:1em;">Get Started</a>
-        </p>
-    </div>
-</div>
+        <div class="splash-container" id="first-page">
+            <div class="splash">
+                <i class="fas fa-car" style="font-size: 100px; color: rgb(131, 190, 134);"></i>
+                <h1 class="splash-head">Bob the Mechanic</h1>
+                <p class="splash-subhead">
+                    Hi there! I am Bob and I fix cars. In this questioning session, I will try to identify what is wrong with your car and provide appropriate feedback on how to repair it.
+                </p>
+                <p>
+                    <a href="webfrontend.php?kb=car.xml" class="pure-button pure-button-primary" style="background: rgb(131, 190, 134); margin-top:1em;">Get Started</a>
+                </p>
+            </div>
+        </div>
+        
+        <footer style="position: fixed; bottom: 0; right: 0; padding: 0.2em;">
+            <p style="color: rgb(113, 132, 122); font-size: 0.8em; padding: 0; margin: 0;">
+            Source code available on <a href="https://github.com/jelmervdl/kennissysteem">Github</a>.
+            </p>
+        </footer>
 
-<footer>
-    <p>Source code available on <a href="https://github.com/jelmervdl/kennissysteem">Github</a>.</p>
-</footer>
-
-</body>
+    </body>
 </html>
